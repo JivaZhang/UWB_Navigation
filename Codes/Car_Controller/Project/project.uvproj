@@ -441,6 +441,11 @@
               <FileType>1</FileType>
               <FilePath>..\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f10x_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -495,6 +500,11 @@
               <FileName>HanLib.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Han_Lib\HanLib.c</FilePath>
+            </File>
+            <File>
+              <FileName>HanAlgorithm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Han_Lib\HanAlgorithm.c</FilePath>
             </File>
           </Files>
         </Group>

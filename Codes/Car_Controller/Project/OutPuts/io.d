@@ -31,5 +31,4 @@
 .\outputs\io.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\outputs\io.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\outputs\io.o: ..\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\outputs\io.o: ..\Motor_Controller\Driver_IO_Conf.h
 .\outputs\io.o: ..\Han_Lib\HanLib.h

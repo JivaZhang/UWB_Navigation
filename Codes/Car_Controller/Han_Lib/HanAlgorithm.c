@@ -1,12 +1,14 @@
 /**
 ******************************************************************************
-* 电机驱动代码
+* This is Han's private STM32-F1 developping lib.
+* Including the algorithms Han needs.
+* @Version 1.0 - STM32F1Lib
 * @Copyright Han ZHANG(haldak) | All rights reserved.
 ******************************************************************************
 */
 
 /* Includes ------------------------------------------------------------------*/
-#include "driver.h"
+#include "HanAlgorithm.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/

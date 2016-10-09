@@ -5,6 +5,7 @@
 ".\outputs\stm32f10x_flash.o"
 ".\outputs\stm32f10x_gpio.o"
 ".\outputs\stm32f10x_rcc.o"
+".\outputs\stm32f10x_tim.o"
 ".\outputs\main.o"
 ".\outputs\port.o"
 ".\outputs\stm32f10x_it.o"
@@ -12,6 +13,7 @@
 ".\outputs\driver.o"
 ".\outputs\io.o"
 ".\outputs\hanlib.o"
+".\outputs\hanalgorithm.o"
 --strict --scatter ".\OutPuts\project.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

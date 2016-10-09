@@ -16,5 +16,8 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+void TIM3_IRQHDL(void);
+void TIM4_IRQHDL(void);
 
+void IO_Init(void);
 #endif /* __IO_DRIVER_H */

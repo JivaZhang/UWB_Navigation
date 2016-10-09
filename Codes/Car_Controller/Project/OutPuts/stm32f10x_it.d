@@ -32,3 +32,4 @@
 .\outputs\stm32f10x_it.o: ..\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\outputs\stm32f10x_it.o: ..\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\outputs\stm32f10x_it.o: ..\Platform\port.h
+.\outputs\stm32f10x_it.o: ..\Motor_Controller\io.h
