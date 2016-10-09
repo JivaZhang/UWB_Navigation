@@ -363,7 +363,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\STM32F10x_StdPeriph_Driver\inc;..\Platform;..\User;..\Motor_Controller</IncludePath>
+              <IncludePath>..\STM32F10x_StdPeriph_Driver\inc;..\Platform;..\User;..\Motor_Controller;..\Han_Lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -480,6 +480,21 @@
               <FileName>driver.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Motor_Controller\driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>io.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Motor_Controller\io.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Han_Lib</GroupName>
+          <Files>
+            <File>
+              <FileName>HanLib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Han_Lib\HanLib.c</FilePath>
             </File>
           </Files>
         </Group>

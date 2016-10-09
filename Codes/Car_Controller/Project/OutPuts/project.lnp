@@ -9,6 +9,9 @@
 ".\outputs\port.o"
 ".\outputs\stm32f10x_it.o"
 ".\outputs\system_stm32f10x.o"
+".\outputs\driver.o"
+".\outputs\io.o"
+".\outputs\hanlib.o"
 --strict --scatter ".\OutPuts\project.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

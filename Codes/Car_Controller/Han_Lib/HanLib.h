@@ -1,40 +1,25 @@
 /**
   ******************************************************************************
-  * 接口定义
+  * Header file for HanLib.c
+	* @Version 1.0 - STM32F1Lib
 	* @Copyright Han ZHANG(haldak) | All rights reserved.
   ******************************************************************************
   */
-
-#ifndef PORT_H_
-#define PORT_H_
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+	
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __HANLIB_H
+#define __HANLIB_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
 
-#ifdef _MSC_VER //stdint.h patch for vs2015
-#include "VSPatch.h"
-#endif
-
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
-
-//For Systick
-#define CLOCKS_PER_SEC					1000
-
 /* Exported functions ------------------------------------------------------- */
-//Periph Init
-void Our_Sys_Init(void);
-	
-void TimingDelay_Decrement(void);
-void Delay(__IO uint32_t nTime);
+void han_GPIO_Set	(GPIO_TypeDef* GPIOx, \
+										u16 GPIO_Pin, \
+										GPIOSpeed_TypeDef GPIO_Speed, \
+										GPIOMode_TypeDef GPIO_Mode);
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* PORT_H_ */
+#endif /* __HANLIB_H */

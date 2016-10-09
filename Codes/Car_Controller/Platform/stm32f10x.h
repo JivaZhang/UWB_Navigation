@@ -477,7 +477,12 @@ typedef enum IRQn
 
 #include "core_cm3.h"
 #include "system_stm32f10x.h"
+
+#ifdef _MSC_VER //Patch for vs2015 (stdint.h bug)
+#include "VSPatch.h"
+#else
 #include <stdint.h>
+#endif
 
 /** @addtogroup Exported_types
   * @{
