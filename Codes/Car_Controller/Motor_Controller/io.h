@@ -16,8 +16,10 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void TIM3_IRQHDL(void);
-void TIM4_IRQHDL(void);
+//void TIM3_IRQHDL(void);
+//void TIM4_IRQHDL(void);
+void TIM5_IRQHDL(void);
+void Motor_Move_Controller(void);
 
 void IO_Init(void);
 #endif /* __IO_DRIVER_H */

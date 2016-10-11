@@ -57,6 +57,9 @@
     <ClCompile Include="..\Han_Lib\HanLib.c">
       <Filter>Han_Lib</Filter>
     </ClCompile>
+    <ClCompile Include="..\Han_Lib\HanAlgorithm.c">
+      <Filter>Han_Lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="startup_stm32f10x_hd.s">

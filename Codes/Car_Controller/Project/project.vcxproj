@@ -124,6 +124,7 @@
     <CustomBuild Include="startup_stm32f10x_hd.s" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Han_Lib\HanAlgorithm.c" />
     <ClCompile Include="..\Han_Lib\HanLib.c" />
     <ClCompile Include="..\Motor_Controller\driver.c" />
     <ClCompile Include="..\Motor_Controller\io.c" />

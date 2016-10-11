@@ -160,14 +160,19 @@ void SysTick_Handler(void)
 * @}
 */
 
-void TIM3_IRQHandler(void)
-{
-	TIM3_IRQHDL();
-}
+//void TIM3_IRQHandler(void)
+//{
+//	TIM3_IRQHDL();
+//}
+//
+//void TIM4_IRQHandler(void)
+//{
+//	TIM4_IRQHDL();
+//}
 
-void TIM4_IRQHandler(void)
+void TIM5_IRQHandler(void)
 {
-	TIM4_IRQHDL();
+	TIM5_IRQHDL();
 }
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
