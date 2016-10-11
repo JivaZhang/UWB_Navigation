@@ -33,7 +33,8 @@ void han_NVIC_Set(IRQn_Type IRQn, \
 
 void han_Timer_Encoder(TIM_TypeDef* TIMx, \
 	u16 LineNumber, \
-	u16 CatchAngle);
+	u16 CatchAngle, \
+	FunctionalState IfEnableIT);
 
 void han_EXTI_Set(uint32_t EXTI_Line, \
 	EXTIMode_TypeDef EXTI_Mode, \
@@ -41,5 +42,9 @@ void han_EXTI_Set(uint32_t EXTI_Line, \
 	FunctionalState EXTI_LineCmd);
 
 u8 han_Get_Counter_Direction(TIM_TypeDef* TIMx);
+
+void han_Timer_Counter(TIM_TypeDef* TIMx, \
+	u16 FreqHz, \
+	FunctionalState IfEnableIT);
 
 #endif /* __HANLIB_H */

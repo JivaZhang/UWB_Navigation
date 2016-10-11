@@ -11,9 +11,13 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+#define LineNumber 390	//Encoder Line Number
+#define CatchAngle 30	//Precision of wheel rotation
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 static uint16_t PWM_Period = 1000; //PWM Max Value
+static u16 arr_calc = (u16)((double)LineNumber * (double)CatchAngle / 360.0);
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -102,39 +106,58 @@ void Encoder_Init(void)
 
 void Encoder_L_Timer3_Init(void)
 {
-	han_NVIC_Set(TIM4_IRQn, 2, 3);
-	han_Timer_Encoder(TIM3, 390, 30);
+//	han_NVIC_Set(TIM4_IRQn, 2, 3);
+	han_Timer_Encoder(TIM3, LineNumber, CatchAngle, DISABLE);
 }
 
 void Encoder_R_Timer4_Init(void)
 {
-	han_NVIC_Set(TIM4_IRQn, 2, 3);
-	han_Timer_Encoder(TIM4, 390, 30); 	
+//	han_NVIC_Set(TIM4_IRQn, 2, 3);
+	han_Timer_Encoder(TIM4, LineNumber, CatchAngle, DISABLE); 	
 }
 
-void TIM3_IRQHDL(void)
+void MoveCtrl_Timer5_Init(void)
 {
-	u16 arr_calc = (u16)((double)390 * (double)30 / 360.0);
-	//TIM_GetCounter(TIM3);
-	//han_Get_Counter_Direction(TIM3);
-	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)
-	{
-		TIM_SetCounter(TIM3, arr_calc * 4 - 1);//Reset counter to middle position
-
-		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
-	}
+	han_Timer_Counter(TIM5, 100, ENABLE);
+	han_NVIC_Set(TIM5_IRQn, 1, 3);
 }
 
-void TIM4_IRQHDL(void)
+void Motor_Move_Controller(void)
 {
-	u16 arr_calc = (u16)((double)390 * (double)30 / 360.0);
-	//TIM_GetCounter(TIM4);
-	//han_Get_Counter_Direction(TIM4);
-	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)
-	{
-		TIM_SetCounter(TIM4, arr_calc * 4 - 1);//Reset counter to middle position
+	//GetLeftEncorder
+	//GetRightEncoder
+}
 
-		TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
+//void TIM3_IRQHDL(void)
+//{
+//	//TIM_GetCounter(TIM3);
+//	//han_Get_Counter_Direction(TIM3);
+//	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)
+//	{
+//		TIM_SetCounter(TIM3, arr_calc * 4 - 1);//Reset counter to middle position
+//
+//		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+//	}
+//}
+//
+//void TIM4_IRQHDL(void)
+//{
+//	//TIM_GetCounter(TIM4);
+//	//han_Get_Counter_Direction(TIM4);
+//	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)
+//	{
+//		TIM_SetCounter(TIM4, arr_calc * 4 - 1);//Reset counter to middle position
+//
+//		TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
+//	}
+//}
+
+void TIM5_IRQHDL(void) //10ms
+{
+	if (TIM_GetITStatus(TIM5, TIM_IT_Update) != RESET)
+	{
+		Motor_Move_Controller();
+		TIM_ClearITPendingBit(TIM5, TIM_IT_Update);
 	}
 }
 
@@ -147,4 +170,5 @@ void IO_Init(void)
 	Encoder_Init();
 	Encoder_L_Timer3_Init();
 	Encoder_R_Timer4_Init();
+	MoveCtrl_Timer5_Init();
 }
