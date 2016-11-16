@@ -28,3 +28,6 @@ car_cont_cube\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_
 car_cont_cube\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 car_cont_cube\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 car_cont_cube\stm32f1xx_it.o: ../Inc/stm32f1xx_it.h
+car_cont_cube\stm32f1xx_it.o: ../Inc/tim.h
+car_cont_cube\stm32f1xx_it.o: ../Inc/delay.h
+car_cont_cube\stm32f1xx_it.o: ../Inc/parseJY.h

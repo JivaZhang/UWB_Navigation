@@ -31,3 +31,5 @@ car_cont_cube\main.o: ../Inc/dma.h
 car_cont_cube\main.o: ../Inc/tim.h
 car_cont_cube\main.o: ../Inc/usart.h
 car_cont_cube\main.o: ../Inc/gpio.h
+car_cont_cube\main.o: ../Inc/delay.h
+car_cont_cube\main.o: ../Inc/parseJY.h
