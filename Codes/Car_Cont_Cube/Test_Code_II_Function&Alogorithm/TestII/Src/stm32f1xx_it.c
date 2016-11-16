@@ -40,8 +40,7 @@
 #include "usart.h"
 #include "delay.h"
 #include "parseJY.h"
-
-static int32_t valEncoderL, valEncoderR;
+#include "encoderPID.h"
 
 /* USER CODE END 0 */
 
@@ -161,8 +160,7 @@ void SysTick_Handler(void)
 	if(tenMSCnt == 10)
 	{
 		tenMSCnt = 0;
-		valEncoderL = (int32_t)(__HAL_TIM_GET_COUNTER(&htim3));
-		valEncoderR = (int32_t)(__HAL_TIM_GET_COUNTER(&htim4));
+		readEncoRAWData();
 	}
   /* USER CODE END SysTick_IRQn 1 */
 }

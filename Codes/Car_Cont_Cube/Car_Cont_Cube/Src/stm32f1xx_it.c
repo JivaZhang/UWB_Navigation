@@ -36,6 +36,11 @@
 #include "stm32f1xx_it.h"
 
 /* USER CODE BEGIN 0 */
+#include "tim.h"
+#include "delay.h"
+#include "parseJY.h"
+
+static int32_t valEncoderL, valEncoderR;
 
 /* USER CODE END 0 */
 
@@ -143,12 +148,20 @@ void DebugMon_Handler(void)
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
-
+	static uint8_t tenMSCnt = 0;
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-
+	DecTick();
+	
+	tenMSCnt++;
+	if(tenMSCnt == 10)
+	{
+		tenMSCnt = 0;
+		valEncoderL = (int32_t)(__HAL_TIM_GET_COUNTER(&htim3));
+		valEncoderR = (int32_t)(__HAL_TIM_GET_COUNTER(&htim4));
+	}
   /* USER CODE END SysTick_IRQn 1 */
 }
 
@@ -169,7 +182,8 @@ void DMA1_Channel5_IRQHandler(void)
   /* USER CODE END DMA1_Channel5_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_usart1_rx);
   /* USER CODE BEGIN DMA1_Channel5_IRQn 1 */
-
+	parseJY_DMA_Data();
+	
   /* USER CODE END DMA1_Channel5_IRQn 1 */
 }
 

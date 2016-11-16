@@ -32,3 +32,4 @@ testii\stm32f1xx_it.o: ../Inc/tim.h
 testii\stm32f1xx_it.o: ../Inc/usart.h
 testii\stm32f1xx_it.o: ../Inc/delay.h
 testii\stm32f1xx_it.o: ../Inc/parseJY.h
+testii\stm32f1xx_it.o: ../Inc/encoderPID.h

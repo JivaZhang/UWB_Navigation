@@ -8,6 +8,7 @@
 "testii\stm32f1xx_it.o"
 "testii\delay.o"
 "testii\parsejy.o"
+"testii\encoderpid.o"
 "testii\stm32f1xx_hal.o"
 "testii\stm32f1xx_hal_rcc_ex.o"
 "testii\stm32f1xx_hal_gpio.o"

@@ -39,13 +39,16 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
+#include "delay.h"
+#include "parseJY.h"
 
 /* USER CODE END Includes */
-
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+
+static uint8_t uwbData[10];
 
 /* USER CODE END PV */
 
@@ -87,7 +90,18 @@ int main(void)
   MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
-
+	HAL_UART_Receive_DMA(&huart1, jy61sData, 11);
+	HAL_UART_Receive_DMA(&huart2, uwbData, 10);
+	
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+	
+	HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_1);
+	HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_2);
+	
+	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
+	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -114,7 +128,7 @@ void SystemClock_Config(void)
     /**Initializes the CPU, AHB and APB busses clocks 
     */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
