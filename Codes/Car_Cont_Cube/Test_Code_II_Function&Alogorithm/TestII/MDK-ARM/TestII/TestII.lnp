@@ -1,0 +1,30 @@
+--cpu Cortex-M3
+"testii\stm32f1xx_hal_msp.o"
+"testii\usart.o"
+"testii\gpio.o"
+"testii\dma.o"
+"testii\main.o"
+"testii\tim.o"
+"testii\stm32f1xx_it.o"
+"testii\delay.o"
+"testii\parsejy.o"
+"testii\stm32f1xx_hal.o"
+"testii\stm32f1xx_hal_rcc_ex.o"
+"testii\stm32f1xx_hal_gpio.o"
+"testii\stm32f1xx_hal_tim_ex.o"
+"testii\stm32f1xx_hal_pwr.o"
+"testii\stm32f1xx_hal_gpio_ex.o"
+"testii\stm32f1xx_hal_cortex.o"
+"testii\stm32f1xx_hal_flash.o"
+"testii\stm32f1xx_hal_tim.o"
+"testii\stm32f1xx_hal_uart.o"
+"testii\stm32f1xx_hal_rcc.o"
+"testii\stm32f1xx_hal_dma.o"
+"testii\stm32f1xx_hal_flash_ex.o"
+"testii\startup_stm32f103xe.o"
+"testii\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "TestII\TestII.sct"
+
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "TestII.map" -o TestII\TestII.axf
