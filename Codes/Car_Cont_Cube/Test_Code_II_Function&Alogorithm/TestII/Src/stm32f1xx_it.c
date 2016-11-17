@@ -148,7 +148,7 @@ void DebugMon_Handler(void)
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
-	static uint8_t tenMSCnt = 0;
+	static uint8_t tenMSCnt = 0, fiftyMSCnt = 0;
 	
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
@@ -157,10 +157,17 @@ void SysTick_Handler(void)
 	DecTick();
 	
 	tenMSCnt++;
+	fiftyMSCnt++;
 	if(tenMSCnt == 10)
 	{
 		tenMSCnt = 0;
 		readEncoRAWData();
+		movementPIDCont();
+	}
+	if(fiftyMSCnt == 50)
+	{
+		fiftyMSCnt = 0;
+		
 	}
   /* USER CODE END SysTick_IRQn 1 */
 }

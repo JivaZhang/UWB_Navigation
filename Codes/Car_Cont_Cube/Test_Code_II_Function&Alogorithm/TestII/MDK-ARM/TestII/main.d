@@ -32,3 +32,4 @@ testii\main.o: ../Inc/tim.h
 testii\main.o: ../Inc/usart.h
 testii\main.o: ../Inc/gpio.h
 testii\main.o: ../Inc/parseJY.h
+testii\main.o: ../Inc/motor_cont.h

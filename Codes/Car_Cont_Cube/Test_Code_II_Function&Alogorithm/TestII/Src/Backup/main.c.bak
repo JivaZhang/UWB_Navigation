@@ -89,7 +89,6 @@ int main(void)
   MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
-	//HAL_UART_Receive_DMA(&huart1, jy61sData, 11);
 	initJY();
 	HAL_UART_Receive_DMA(&huart2, uwbData, 10);
 	

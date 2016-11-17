@@ -40,6 +40,7 @@
 
 /* USER CODE BEGIN Includes */
 #include "parseJY.h"
+#include "motor_cont.h"
 
 /* USER CODE END Includes */
 
@@ -81,16 +82,16 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
+//  MX_DMA_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
-  MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
+//  MX_USART1_UART_Init();
+//  MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
-	initJY();
-	HAL_UART_Receive_DMA(&huart2, uwbData, 10);
+//	initJY();
+//	HAL_UART_Receive_DMA(&huart2, uwbData, 10);
 	
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
@@ -100,6 +101,11 @@ int main(void)
 	
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
+	
+	
+	car_Awake();
+	car_FastDecay();
+	car_GoStraight(350);
 	
   /* USER CODE END 2 */
 

@@ -14,5 +14,14 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+void car_Sleep(void);
+void car_Awake(void);
+void car_Brake(void);
+void car_FastDecay(void);
+void car_SetSpeedL(int32_t speedL);
+void car_SetSpeedR(int32_t speedR);
+uint8_t car_GetDirecL(void);
+uint8_t car_GetDirecR(void);
+void car_GoStraight(int16_t targetSpeed);
 
 #endif /* __sMOTORCONT_H */

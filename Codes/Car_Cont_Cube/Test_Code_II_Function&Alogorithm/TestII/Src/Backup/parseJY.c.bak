@@ -30,13 +30,14 @@ SGPSV			stcGPSV;
 void findHeader(void)
 {
 	//Change DMA to get only 1 bit data
+	HAL_UART_DMAStop(&huart1);
 	HAL_UART_Receive_DMA(&huart1, &tempBuffer, 1);
 	tempHeader = SET;
 }
 
 void initJY(void)
 {
-	//HAL_UART_Receive_DMA(&huart1, jyDMAPtr, 11);
+	findHeader();
 }
 
 void parseJY_DMA_Data(void)
@@ -66,19 +67,31 @@ void parseJY_DMA_Data(void)
 
 void receiveJY_DMA_Data(void)
 {
+	static uint8_t tempCnt, findingFlag;
 	if(tempHeader == SET)
 	{
 		if(tempBuffer == 0x55)
 		{
-			
+			tempCnt = 0;
+			findingFlag = SET;
 		}
-		else
+		else if(findingFlag == SET)
 		{
-			
+			tempCnt++;
+			if(tempCnt == 10)
+			{
+				findingFlag = RESET;
+				tempHeader = RESET;
+				HAL_UART_DMAStop(&huart1);
+				HAL_UART_Receive_DMA(&huart1, jy61sData, 11);
+			}
 		}
 	}
 	else
 	{
-		
+		if(jy61sData[0] != 0x55)
+			findHeader();
+		else
+			parseJY_DMA_Data();
 	}
 }

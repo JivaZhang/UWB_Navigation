@@ -74,6 +74,6 @@ typedef struct
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void initJY(void);
-void parseHeader(void);
+void receiveJY_DMA_Data(void);
 
 #endif /* __sPARSEJY_H */

@@ -4,8 +4,8 @@
 */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __sENCODERPID_H
-#define __sENCODERPID_H
+#ifndef __sMOTORCONT_H
+#define __sMOTORCONT_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
@@ -14,8 +14,7 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void readEncoRAWData(void);
-void movementPIDCont(void);
-void setTargetSpeed(int32_t speedL, int32_t speedR);
+uint8_t car_GetDirecL(void);
+uint8_t car_GetDirecR(void);
 
-#endif /* __sENCODERPID_H */
+#endif /* __sMOTORCONT_H */
