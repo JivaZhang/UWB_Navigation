@@ -82,12 +82,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-//  MX_DMA_Init();
+  MX_DMA_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
-//  MX_USART1_UART_Init();
-//  MX_USART2_UART_Init();
+  MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
 //	initJY();
@@ -105,7 +105,9 @@ int main(void)
 	
 	car_Awake();
 	car_FastDecay();
-	car_GoStraight(350);
+	//car_GoStraight(350);
+	car_SetSpeedL(0);
+	car_SetSpeedR(0);
 	
   /* USER CODE END 2 */
 

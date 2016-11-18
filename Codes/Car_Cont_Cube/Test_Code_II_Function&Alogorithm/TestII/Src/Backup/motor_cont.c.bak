@@ -40,7 +40,7 @@ void car_FastDecay(void)
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6 | GPIO_PIN_7, GPIO_PIN_RESET);
 }
 
-void car_SetSpeedL(int16_t speedL)
+void car_SetSpeedL(int32_t speedL)
 {
 	forwardFlagL = speedL > 0 ? SET : RESET;
 	if(forwardFlagL == SET)
@@ -58,9 +58,9 @@ void car_SetSpeedL(int16_t speedL)
 	htim2.Instance->CCR1 = speedL;
 }
 
-void car_SetSpeedR(int16_t speedR)
+void car_SetSpeedR(int32_t speedR)
 {
-	forwardFlagR = speedR > 0 ? SET : RESET;
+	forwardFlagR = speedR < 0 ? SET : RESET; //Filp motor connector.
 	if(forwardFlagR == SET)
 	{
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);

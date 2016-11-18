@@ -60,7 +60,7 @@ void car_SetSpeedL(int32_t speedL)
 
 void car_SetSpeedR(int32_t speedR)
 {
-	forwardFlagR = speedR > 0 ? SET : RESET;
+	forwardFlagR = speedR < 0 ? SET : RESET; //Filp motor connector.
 	if(forwardFlagR == SET)
 	{
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
