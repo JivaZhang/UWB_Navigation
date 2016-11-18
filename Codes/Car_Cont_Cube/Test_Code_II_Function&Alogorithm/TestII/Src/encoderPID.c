@@ -44,9 +44,9 @@ void setTargetSpeed(int32_t speedL, int32_t speedR)
 //PWM += Kp * [e(k) - e(k-1)] + Ki * e(k) + Kd * [e(k) - 2 * e(k-1) + e(k-2)]
 int32_t incrementalPIDL(int encoderDiffPulseL, int targetSpeedL)
 { 	
-	float Kp = 20.0, Ki = 30.0, Kd = 0.0;
+	float Kp = 1.1, Ki = 0.0005, Kd = 0.01;
 	static int32_t Ek = 0, Ek1 = 0, Ek2 = 0, PWM = 0;
-	Ek = encoderDiffPulseL - targetSpeedL;
+	Ek = -encoderDiffPulseL + targetSpeedL;
 	PWM += Kp * (Ek - Ek1) + Ki * Ek + Kd * (Ek - 2 * Ek1 + Ek2);
 	Ek2 = Ek1;
 	Ek1 = Ek;
@@ -56,9 +56,9 @@ int32_t incrementalPIDL(int encoderDiffPulseL, int targetSpeedL)
 //PWM += Kp * [e(k) - e(k-1)] + Ki * e(k) + Kd * [e(k) - 2 * e(k-1) + e(k-2)]
 int32_t incrementalPIDR(int encoderDiffPulseR, int targetSpeedR)
 { 	
-	float Kp = 20.0, Ki = 30.0, Kd = 0.0;
+	float Kp = 1.1, Ki = 0.0005, Kd = 0.01;
 	static int32_t Ek = 0, Ek1 = 0, Ek2 = 0, PWM = 0;
-	Ek = encoderDiffPulseR - targetSpeedR;
+	Ek = -encoderDiffPulseR + targetSpeedR;
 	PWM += Kp * (Ek - Ek1) + Ki * Ek + Kd * (Ek - 2 * Ek1 + Ek2);
 	Ek2 = Ek1;
 	Ek1 = Ek;
@@ -72,7 +72,7 @@ void movementPIDCont(void) //Be called in every 10ms.
 	encoderDiffL = getEncoderDiffL();
 	encoderDiffR = getEncoderDiffR();
 	pidSpeedL = incrementalPIDL(encoderDiffL, targetSpeedL);
-	pidSpeedR = incrementalPIDR(encoderDiffR, targetSpeedR);
 	car_SetSpeedL(pidSpeedL);
+	pidSpeedR = incrementalPIDR(encoderDiffR, targetSpeedR);
 	car_SetSpeedR(pidSpeedR);
 }

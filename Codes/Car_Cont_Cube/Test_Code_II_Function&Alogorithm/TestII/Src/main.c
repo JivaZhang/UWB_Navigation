@@ -105,9 +105,9 @@ int main(void)
 	
 	car_Awake();
 	car_FastDecay();
-	//car_GoStraight(350);
-	car_SetSpeedL(0);
-	car_SetSpeedR(0);
+	car_GoStraight(400);
+//	car_SetSpeedL(500);
+//	car_SetSpeedR(500);
 	
   /* USER CODE END 2 */
 

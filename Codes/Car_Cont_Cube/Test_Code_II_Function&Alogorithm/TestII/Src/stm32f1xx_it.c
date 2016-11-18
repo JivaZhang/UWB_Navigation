@@ -162,7 +162,7 @@ void SysTick_Handler(void)
 	{
 		tenMSCnt = 0;
 		readEncoRAWData();
-//		movementPIDCont();
+		movementPIDCont();
 	}
 	if(fiftyMSCnt == 50)
 	{
