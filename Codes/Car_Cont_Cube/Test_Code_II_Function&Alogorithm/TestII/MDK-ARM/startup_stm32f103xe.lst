@@ -578,18 +578,18 @@ ARM Macro Assembler    Page 9
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=testii\startup_stm32f103xe.d -otestii\startup_stm32f103xe.o -I"D:\
-Project\Navigation\Codes\Car_Cont_Cube\Test_Code_II_Function&Alogorithm\TestII 
-- ¸±±¾\MDK-ARM\RTE" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include -
-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.1.0 --predefine="__MICROLIB SETA 1" -
--predefine="__UVISION_VERSION SETA 514" --predefine="_RTE_ SETA 1" --predefine=
+ork --depend=testii\startup_stm32f103xe.d -otestii\startup_stm32f103xe.o -ID:\P
+roject\Navigation\Codes\Car_Cont_Cube\Test_Code_II_Function&Alogorithm\TestII\M
+DK-ARM\RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include -IC:\Keil_
+v5\ARM\PACK\Keil\STM32F1xx_DFP\2.1.0 --predefine="__MICROLIB SETA 1" --predefin
+e="__UVISION_VERSION SETA 514" --predefine="_RTE_ SETA 1" --predefine="STM32F10
 
 
 
 ARM Macro Assembler    Page 10 
 
 
-"STM32F10X_HD SETA 1" --list=startup_stm32f103xe.lst startup_stm32f103xe.s
+X_HD SETA 1" --list=startup_stm32f103xe.lst startup_stm32f103xe.s
 
 
 

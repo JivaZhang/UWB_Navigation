@@ -103,4 +103,5 @@ void car_GoStraight(int16_t targetSpeed) //PID
 void car_GoLength(int16_t targetLength) //PID
 {
 	setTargetPos(targetLength, targetLength);
+	clearEncoderFlag = SET;
 }

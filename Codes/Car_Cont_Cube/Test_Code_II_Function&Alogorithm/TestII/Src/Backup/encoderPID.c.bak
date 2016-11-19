@@ -25,18 +25,18 @@ void readEncoRAWData(void)
 	//saveEncoderR = valEncoderR;
 	valEncoderL = (int32_t)(__HAL_TIM_GET_COUNTER(&htim3));
 	valEncoderR = (int32_t)(__HAL_TIM_GET_COUNTER(&htim4));
-//	__HAL_TIM_SET_COUNTER(&htim3, 0);
-//	__HAL_TIM_SET_COUNTER(&htim4, 0);
+	__HAL_TIM_SET_COUNTER(&htim3, 5000);
+	__HAL_TIM_SET_COUNTER(&htim4, 5000);
 }
 
 int32_t getEncoderDiffL(void)
 {
-	return valEncoderL; // - saveEncoderL;
+	return valEncoderL - 5000; // - saveEncoderL;
 }	
 
 int32_t getEncoderDiffR(void)
 {
-	return valEncoderR; // - saveEncoderR;
+	return valEncoderR - 5000; // - saveEncoderR;
 }
 
 void setTargetSpeed(int32_t speedL, int32_t speedR)
@@ -119,11 +119,11 @@ void movementPIDCont(void) //Be called in every 10ms.
 	encoderDiffR = getEncoderDiffR();
 	positionR += encoderDiffR;
 	
-	pidSpeedIncL = incrementalPIDL(encoderDiffL, targetSpeedL);
-	pidSpeedPosL = positionPIDL(positionL, targetPosL);
-	car_SetSpeedL(pidSpeedPosL);
-	
-	pidSpeedIncR = incrementalPIDR(encoderDiffR, targetSpeedR);
-	pidSpeedPosR = positionPIDR(positionR, targetPosR);
-	car_SetSpeedR(pidSpeedPosR);
+//	pidSpeedIncL = incrementalPIDL(encoderDiffL, targetSpeedL);
+//	pidSpeedPosL = positionPIDL(positionL, targetPosL);
+//	car_SetSpeedL(pidSpeedPosL);
+//	
+//	pidSpeedIncR = incrementalPIDR(encoderDiffR, targetSpeedR);
+//	pidSpeedPosR = positionPIDR(positionR, targetPosR);
+//	car_SetSpeedR(pidSpeedPosR);
 }

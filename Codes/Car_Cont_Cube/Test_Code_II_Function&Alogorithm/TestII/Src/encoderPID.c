@@ -16,6 +16,7 @@ static int32_t valEncoderL = 0, valEncoderR = 0; //, saveEncoderL = 0, saveEncod
 static int32_t positionL = 0, positionR = 0;
 static int32_t targetSpeedL = 0, targetSpeedR = 0;
 static int32_t targetPosL = 0, targetPosR = 0;
+uint8_t clearEncoderFlag = RESET;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -83,7 +84,7 @@ int32_t incrementalPIDR(int32_t encoderDiffPulseR, int32_t targetSpeedR)
 //PWM = Kp * e(k) + Ki * ¡Æe(k) + Kd * [e(k) - e(k-1)]
 int32_t positionPIDL(int32_t encoderPosL, int32_t targetPosL)
 { 	
-	static float Kp = 1.5, Ki = 1.1, Kd = 0.0;
+	static float Kp = 3.7, Ki = 0.0, Kd = 2.7;
 	static float Ek = 0.0, Ek1 = 0.0, sigmaEk = 0.0, PWML = 0.0;
 	static int32_t temp;
 	temp = -encoderPosL + targetPosL;
@@ -97,7 +98,7 @@ int32_t positionPIDL(int32_t encoderPosL, int32_t targetPosL)
 //PWM = Kp * e(k) + Ki * ¡Æe(k) + Kd * [e(k) - e(k-1)]
 int32_t positionPIDR(int32_t encoderPosR, int32_t targetPosR)
 { 	
-	static float Kp = 1.5, Ki = 1.1, Kd = 0.0;
+	static float Kp = 3.7, Ki = 0.0, Kd = 2.7;
 	static float Ek = 0.0, Ek1 = 0.0, sigmaEk = 0.0, PWMR = 0.0;
 	static int32_t temp;
 	temp = -encoderPosR + targetPosR;
@@ -119,11 +120,18 @@ void movementPIDCont(void) //Be called in every 10ms.
 	encoderDiffR = getEncoderDiffR();
 	positionR += encoderDiffR;
 	
-//	pidSpeedIncL = incrementalPIDL(encoderDiffL, targetSpeedL);
-//	pidSpeedPosL = positionPIDL(positionL, targetPosL);
-//	car_SetSpeedL(pidSpeedPosL);
-//	
-//	pidSpeedIncR = incrementalPIDR(encoderDiffR, targetSpeedR);
-//	pidSpeedPosR = positionPIDR(positionR, targetPosR);
-//	car_SetSpeedR(pidSpeedPosR);
+	if(clearEncoderFlag == SET)
+	{
+		clearEncoderFlag = RESET;
+		positionL = 0;
+		positionR = 0;
+	}
+	
+	pidSpeedIncL = incrementalPIDL(encoderDiffL, targetSpeedL);
+	pidSpeedPosL = positionPIDL(positionL, targetPosL);
+	car_SetSpeedL(pidSpeedPosL);
+	
+	pidSpeedIncR = incrementalPIDR(encoderDiffR, targetSpeedR);
+	pidSpeedPosR = positionPIDR(positionR, targetPosR);
+	car_SetSpeedR(pidSpeedPosR);
 }
