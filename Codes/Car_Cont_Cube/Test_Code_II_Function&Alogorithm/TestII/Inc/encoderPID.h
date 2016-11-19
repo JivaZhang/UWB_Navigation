@@ -18,6 +18,8 @@ extern uint8_t clearEncoderFlag;
 /* Exported functions ------------------------------------------------------- */
 void readEncoRAWData(void);
 void movementPIDCont(void);
+void straightPIDConstraint(void);
+void contSpeedPWM(void);
 void setTargetSpeed(int32_t speedL, int32_t speedR);
 void setTargetPos(int32_t posL, int32_t posR);
 

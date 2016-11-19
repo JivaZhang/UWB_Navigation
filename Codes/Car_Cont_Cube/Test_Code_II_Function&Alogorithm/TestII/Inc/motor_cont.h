@@ -22,7 +22,8 @@ void car_SetSpeedL(int32_t speedL);
 void car_SetSpeedR(int32_t speedR);
 uint8_t car_GetDirecL(void);
 uint8_t car_GetDirecR(void);
-void car_GoStraight(int16_t targetSpeed);
-void car_GoLength(int16_t targetLength);
+void car_Turn(int32_t degree);
+void car_GoStraight(int32_t targetSpeed);
+void car_GoLength(int32_t targetLength);
 
 #endif /* __sMOTORCONT_H */
