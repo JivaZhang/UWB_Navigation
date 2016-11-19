@@ -96,3 +96,8 @@ void car_GoStraight(int16_t targetSpeed) //PID
 {
 	setTargetSpeed(targetSpeed, targetSpeed);
 }
+
+void car_GoLength(int16_t targetLength) //PID
+{
+	setTargetPos(targetLength, targetLength);
+}

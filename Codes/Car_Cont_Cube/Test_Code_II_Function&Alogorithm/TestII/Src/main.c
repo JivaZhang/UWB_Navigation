@@ -39,6 +39,7 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
+#include "delay.h"
 #include "parseJY.h"
 #include "motor_cont.h"
 
@@ -102,12 +103,16 @@ int main(void)
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
 	
+//	DelayMS(5000);
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_SET);
 	
 	car_Awake();
 	car_FastDecay();
-	car_GoStraight(400);
-//	car_SetSpeedL(500);
-//	car_SetSpeedR(500);
+//	car_GoLength(300);
+//	car_Brake();
+//	car_GoStraight(400);
+	car_SetSpeedL(1560);
+	car_SetSpeedR(1560);
 	
   /* USER CODE END 2 */
 
