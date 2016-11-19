@@ -90,30 +90,42 @@ uint8_t car_GetDirecR(void)
 	return forwardFlagR;
 }
 
-void car_Turn(int32_t degree) //Cal?
+void car_Turn(int32_t thetaTurn) //Cal -> thetaWheel = 2 * thetaTurn
 {
-	setTargetPos(degree, degree);
+	static int32_t thetaWheelL = 0, thetaWheelR = 0;
+	thetaTurn = thetaTurn % 360;
+	thetaWheelL = 2.15 * thetaTurn;
+	thetaWheelR = -2.15 * thetaTurn;
+	thetaWheelL = thetaWheelL * encoderPulse / 360.0;
+	thetaWheelR = thetaWheelR * encoderPulse / 360.0;
+	setTargetPos(thetaWheelL, thetaWheelR);
 	clearEncoderFlag = SET;
+	turnStableFlag = 0xFF;
 }
 
-void car_GoStraight(int32_t targetSpeed) //Speed = [21,100]
+uint8_t ifTurnStable(void)
 {
-	//targetSpeed = [7,33](Oct)
-	static float setSpeed = 0.0, calSpeed = 0.0;
-	static int32_t tranSpeed = 0;
-	
-	setSpeed = (float)targetSpeed;
-	setSpeed = setSpeed > 100.0 ? 100.0 : setSpeed;
-	setSpeed = setSpeed < -100.0 ? -100.0 : setSpeed;
-	
-	calSpeed = setSpeed / 100.0 * 33.0;
-	if(calSpeed > 0.0 && calSpeed < 7.0)
-		calSpeed = 7.0;
-	if(calSpeed < 0.0 && calSpeed > -7.0)
-		calSpeed = -7.0;
-	tranSpeed = (int32_t)calSpeed;
-	
-	setTargetSpeed(tranSpeed, tranSpeed);
+	return turnStableFlag;
+}
+
+void car_GoStraight(int32_t targetSpeed)
+{
+//	//targetSpeed = [7,33](Oct)
+//	static float setSpeed = 0.0, calSpeed = 0.0;
+//	static int32_t tranSpeed = 0;
+//	
+//	setSpeed = (float)targetSpeed;
+//	setSpeed = setSpeed > 100.0 ? 100.0 : setSpeed;
+//	setSpeed = setSpeed < -100.0 ? -100.0 : setSpeed;
+//	
+//	calSpeed = setSpeed / 100.0 * 33.0;
+//	if(calSpeed > 0.0 && calSpeed < 7.0)
+//		calSpeed = 7.0;
+//	if(calSpeed < 0.0 && calSpeed > -7.0)
+//		calSpeed = -7.0;
+//	tranSpeed = (int32_t)calSpeed;
+//	
+//	setTargetSpeed(tranSpeed, tranSpeed);
 }
 
 void car_GoLength(int32_t targetLength) //PID

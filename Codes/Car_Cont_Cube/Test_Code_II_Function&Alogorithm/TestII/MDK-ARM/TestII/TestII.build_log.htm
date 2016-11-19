@@ -22,17 +22,20 @@ Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
 D:\Project\Navigation\Codes\Car_Cont_Cube\Test_Code_II_Function&Alogorithm\TestII\MDK-ARM\TestII.uvprojx
-Project File Date:  11/19/2016
+Project File Date:  11/20/2016
 
 <h2>Output:</h2>
 Build target 'TestII'
-compiling main.c...
-../Src/main.c(52): warning:  #177-D: variable "uwbData" was declared but never referenced
-  static uint8_t uwbData[10];
-../Src/main.c: 1 warning, 0 errors
+compiling encoderPID.c...
+..\Src\encoderPID.c(136): warning:  #550-D: variable "pidSpeedIncL" was set but never used
+        static int32_t pidSpeedIncL = 0, pidSpeedIncR = 0;
+..\Src\encoderPID.c(136): warning:  #550-D: variable "pidSpeedIncR" was set but never used
+        static int32_t pidSpeedIncL = 0, pidSpeedIncR = 0;
+..\Src\encoderPID.c: 2 warnings, 0 errors
+compiling motor_cont.c...
 linking...
-Program Size: Code=15484 RO-data=360 RW-data=352 ZI-data=1456  
-"TestII\TestII.axf" - 0 Error(s), 1 Warning(s).
+Program Size: Code=15160 RO-data=360 RW-data=356 ZI-data=1460  
+"TestII\TestII.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 

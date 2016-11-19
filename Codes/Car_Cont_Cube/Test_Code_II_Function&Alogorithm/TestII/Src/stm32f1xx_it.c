@@ -162,6 +162,10 @@ void SysTick_Handler(void)
 	if(tenMSCnt == 10)
 	{
 		tenMSCnt = 0;
+		readEncoRAWData();
+		movementPIDCont();
+//		straightPIDConstraint();
+		contSpeedPWM();
 	}
 	if(fiftyMSCnt == 50)
 	{
@@ -170,10 +174,6 @@ void SysTick_Handler(void)
 	if(hundredMSCnt == 100)
 	{
 		hundredMSCnt = 0;
-		readEncoRAWData();
-		movementPIDCont();
-		straightPIDConstraint();
-		contSpeedPWM();
 	}
   /* USER CODE END SysTick_IRQn 1 */
 }

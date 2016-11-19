@@ -108,6 +108,7 @@ int main(void)
 	
 	car_Awake();
 	car_FastDecay();
+//	car_Turn(90);
 //	car_GoLength(50);
 //	car_Brake();
 //	car_GoStraight(30);
@@ -123,6 +124,18 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+		car_Turn(90);
+		while(ifTurnStable());
+		DelayMS(1000);
+		car_Turn(90);
+		while(ifTurnStable());
+		DelayMS(1000);
+		car_Turn(90);
+		while(ifTurnStable());
+		DelayMS(1000);
+		car_Turn(90);
+		while(ifTurnStable());
+		DelayMS(1000);
 
   }
   /* USER CODE END 3 */

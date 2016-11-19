@@ -12,7 +12,7 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-extern uint8_t clearEncoderFlag;
+extern uint8_t clearEncoderFlag, turnStableFlag;
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

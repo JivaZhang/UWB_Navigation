@@ -14,7 +14,7 @@
 /* Private variables ---------------------------------------------------------*/
 static uint8_t forwardFlagL, forwardFlagR;
 static uint16_t encoderPulse = 390 * 4; //Encoder maximum output.
-static uint16_t minSpeed = 370; //Minimum speed.
+static uint16_t minSpeed = 400; //Minimum speed.
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -90,17 +90,34 @@ uint8_t car_GetDirecR(void)
 	return forwardFlagR;
 }
 
-void car_Turn(int16_t degree) //Cal?
+void car_Turn(int32_t degree) //Cal?
 {
+	setTargetPos(degree, degree);
+	clearEncoderFlag = SET;
+}
+
+void car_GoStraight(int32_t targetSpeed) //Speed = [21,100]
+{
+	//targetSpeed = [7,33](Oct)
+	static float setSpeed = 0.0, calSpeed = 0.0;
+	static int32_t tranSpeed = 0;
 	
+	setSpeed = (float)targetSpeed;
+	setSpeed = setSpeed > 100.0 ? 100.0 : setSpeed;
+	setSpeed = setSpeed < -100.0 ? -100.0 : setSpeed;
+	
+	calSpeed = setSpeed / 100.0 * 33.0;
+	if(calSpeed > 0.0 && calSpeed < 7.0)
+		calSpeed = 7.0;
+	if(calSpeed < 0.0 && calSpeed > -7.0)
+		calSpeed = -7.0;
+	tranSpeed = (int32_t)calSpeed;
+	
+	setTargetSpeed(tranSpeed, tranSpeed);
 }
 
-void car_GoStraight(int16_t targetSpeed) //PID
-{
-	setTargetSpeed(targetSpeed, targetSpeed);
-}
-
-void car_GoLength(int16_t targetLength) //PID
+void car_GoLength(int32_t targetLength) //PID
 {
 	setTargetPos(targetLength, targetLength);
+	clearEncoderFlag = SET;
 }
