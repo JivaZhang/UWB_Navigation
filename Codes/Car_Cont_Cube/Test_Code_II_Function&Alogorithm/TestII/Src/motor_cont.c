@@ -95,9 +95,24 @@ void car_Turn(int16_t degree) //Cal?
 	
 }
 
-void car_GoStraight(int16_t targetSpeed) //PID
+void car_GoStraight(int16_t targetSpeed) //Speed = [21,100]
 {
-	setTargetSpeed(targetSpeed, targetSpeed);
+	//targetSpeed = [7,33](Oct)
+	static float setSpeed = 0.0, calSpeed = 0.0;
+	static int32_t tranSpeed = 0;
+	
+	setSpeed = (float)targetSpeed;
+	setSpeed = setSpeed > 100.0 ? 100.0 : setSpeed;
+	setSpeed = setSpeed < -100.0 ? -100.0 : setSpeed;
+	
+	calSpeed = setSpeed / 100.0 * 33.0;
+	if(calSpeed > 0.0 && calSpeed < 7.0)
+		calSpeed = 7.0;
+	if(calSpeed < 0.0 && calSpeed > -7.0)
+		calSpeed = -7.0;
+	tranSpeed = (int32_t)calSpeed;
+	
+	setTargetSpeed(tranSpeed, tranSpeed);
 }
 
 void car_GoLength(int16_t targetLength) //PID
