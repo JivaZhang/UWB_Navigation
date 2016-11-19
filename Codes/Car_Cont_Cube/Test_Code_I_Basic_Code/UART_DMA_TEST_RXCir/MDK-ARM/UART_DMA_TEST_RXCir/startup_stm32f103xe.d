@@ -1,1 +1,0 @@
-uart_dma_test_rxcir\startup_stm32f103xe.o: startup_stm32f103xe.s

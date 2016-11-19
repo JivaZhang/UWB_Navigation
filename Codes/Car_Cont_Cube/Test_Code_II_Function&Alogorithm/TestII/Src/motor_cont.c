@@ -14,6 +14,7 @@
 /* Private variables ---------------------------------------------------------*/
 static uint8_t forwardFlagL, forwardFlagR;
 static uint16_t encoderPulse = 390 * 4; //Encoder maximum output.
+static uint16_t minSpeed = 370; //Minimum speed.
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -54,6 +55,7 @@ void car_SetSpeedL(int32_t speedL)
 	
 	speedL = speedL > 0 ? speedL : -speedL;
 	speedL = speedL > encoderPulse ? encoderPulse : speedL;
+	speedL = speedL < minSpeed ? minSpeed : speedL;
 	
 	htim2.Instance->CCR1 = speedL;
 }
@@ -73,6 +75,7 @@ void car_SetSpeedR(int32_t speedR)
 	
 	speedR = speedR > 0 ? speedR : -speedR;
 	speedR = speedR > encoderPulse ? encoderPulse : speedR;
+	speedR = speedR < minSpeed ? minSpeed : speedR;
 	
 	htim2.Instance->CCR2 = speedR;
 }
@@ -95,4 +98,9 @@ void car_Turn(int16_t degree) //Cal?
 void car_GoStraight(int16_t targetSpeed) //PID
 {
 	setTargetSpeed(targetSpeed, targetSpeed);
+}
+
+void car_GoLength(int16_t targetLength) //PID
+{
+	setTargetPos(targetLength, targetLength);
 }
