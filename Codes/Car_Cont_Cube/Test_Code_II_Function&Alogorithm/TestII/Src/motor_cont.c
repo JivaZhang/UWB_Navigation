@@ -14,7 +14,7 @@
 /* Private variables ---------------------------------------------------------*/
 static uint8_t forwardFlagL, forwardFlagR;
 static uint16_t encoderPulse = 390 * 4; //Encoder maximum output.
-static uint16_t minSpeed = 400; //Minimum speed.
+static uint16_t minSpeed = 350; //Minimum speed.
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -55,7 +55,7 @@ void car_SetSpeedL(int32_t speedL)
 	
 	speedL = speedL > 0 ? speedL : -speedL;
 	speedL = speedL > encoderPulse ? encoderPulse : speedL;
-	speedL = speedL < minSpeed ? minSpeed : speedL;
+//`	speedL = speedL < minSpeed ? minSpeed : speedL;
 	
 	htim2.Instance->CCR1 = speedL;
 }
@@ -75,7 +75,7 @@ void car_SetSpeedR(int32_t speedR)
 	
 	speedR = speedR > 0 ? speedR : -speedR;
 	speedR = speedR > encoderPulse ? encoderPulse : speedR;
-	speedR = speedR < minSpeed ? minSpeed : speedR;
+//	speedR = speedR < minSpeed ? minSpeed : speedR;
 	
 	htim2.Instance->CCR2 = speedR;
 }
@@ -103,33 +103,41 @@ void car_Turn(int32_t thetaTurn) //Cal -> thetaWheel = 2 * thetaTurn
 	turnStableFlag = 0xFF;
 }
 
+void car_GoLength(int32_t targetLength) //PID
+{
+	setTargetPos(targetLength, targetLength);
+	clearEncoderFlag = SET;
+	turnStableFlag = 0xFF;
+}
+
 uint8_t ifTurnStable(void)
 {
 	return turnStableFlag;
 }
 
-void car_GoStraight(int32_t targetSpeed)
+void car_GoStraight(int32_t targetSpeed) //Speed range: [0,121]
 {
-//	//targetSpeed = [7,33](Oct)
-//	static float setSpeed = 0.0, calSpeed = 0.0;
-//	static int32_t tranSpeed = 0;
-//	
-//	setSpeed = (float)targetSpeed;
-//	setSpeed = setSpeed > 100.0 ? 100.0 : setSpeed;
-//	setSpeed = setSpeed < -100.0 ? -100.0 : setSpeed;
-//	
-//	calSpeed = setSpeed / 100.0 * 33.0;
-//	if(calSpeed > 0.0 && calSpeed < 7.0)
-//		calSpeed = 7.0;
-//	if(calSpeed < 0.0 && calSpeed > -7.0)
-//		calSpeed = -7.0;
-//	tranSpeed = (int32_t)calSpeed;
-//	
-//	setTargetSpeed(tranSpeed, tranSpeed);
+//	//targetSpeed = [28,121](Oct)
+	static float maxEncoSpeed = 121.0, minEncoSpeed = 28.0;
+	static float setSpeed = 0.0;
+	static int32_t tranSpeed = 0;
+
+	setSpeed = (float)targetSpeed;
+	setSpeed = setSpeed > maxEncoSpeed ? maxEncoSpeed : setSpeed;
+	setSpeed = setSpeed < -maxEncoSpeed ? -maxEncoSpeed : setSpeed;
+	
+	if(setSpeed > 0.0 && setSpeed < minEncoSpeed)
+		setSpeed = minEncoSpeed;
+	if(setSpeed < 0.0 && setSpeed > -minEncoSpeed)
+		setSpeed = -minEncoSpeed;
+	tranSpeed = (int32_t)setSpeed;
+	
+	setTargetSpeed(tranSpeed, tranSpeed);
 }
 
-void car_GoLength(int32_t targetLength) //PID
+void car_Stop(void)
 {
-	setTargetPos(targetLength, targetLength);
+	setTargetSpeed(0, 0);
+	setTargetPos(0, 0);
 	clearEncoderFlag = SET;
 }

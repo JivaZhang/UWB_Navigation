@@ -111,9 +111,9 @@ int main(void)
 //	car_Turn(90);
 //	car_GoLength(50);
 //	car_Brake();
-//	car_GoStraight(30);
-//	car_SetSpeedL(2000);
-//	car_SetSpeedR(2000);
+//	car_GoStraight(10);
+//	car_SetSpeedL(350);
+//	car_SetSpeedR(350);
 	
   /* USER CODE END 2 */
 
@@ -124,17 +124,16 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-		car_Turn(90);
-		while(ifTurnStable());
+//		car_Turn(90);
+//		while(ifTurnStable());
+//		DelayMS(1000);
+		car_GoStraight(10);
+		DelayMS(2500);
+		car_Stop();
 		DelayMS(1000);
-		car_Turn(90);
-		while(ifTurnStable());
+		car_GoStraight(100);
 		DelayMS(1000);
-		car_Turn(90);
-		while(ifTurnStable());
-		DelayMS(1000);
-		car_Turn(90);
-		while(ifTurnStable());
+		car_Stop();
 		DelayMS(1000);
 
   }

@@ -26,16 +26,13 @@ Project File Date:  11/20/2016
 
 <h2>Output:</h2>
 Build target 'TestII'
-compiling encoderPID.c...
-..\Src\encoderPID.c(136): warning:  #550-D: variable "pidSpeedIncL" was set but never used
-        static int32_t pidSpeedIncL = 0, pidSpeedIncR = 0;
-..\Src\encoderPID.c(136): warning:  #550-D: variable "pidSpeedIncR" was set but never used
-        static int32_t pidSpeedIncL = 0, pidSpeedIncR = 0;
-..\Src\encoderPID.c: 2 warnings, 0 errors
 compiling motor_cont.c...
+..\Src\motor_cont.c(17): warning:  #177-D: variable "minSpeed" was declared but never referenced
+  static uint16_t minSpeed = 350; //Minimum speed.
+..\Src\motor_cont.c: 1 warning, 0 errors
 linking...
-Program Size: Code=15160 RO-data=360 RW-data=356 ZI-data=1460  
-"TestII\TestII.axf" - 0 Error(s), 2 Warning(s).
+Program Size: Code=15352 RO-data=360 RW-data=372 ZI-data=1460  
+"TestII\TestII.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
