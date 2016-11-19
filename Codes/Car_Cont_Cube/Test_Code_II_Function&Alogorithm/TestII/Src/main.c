@@ -103,16 +103,16 @@ int main(void)
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
 	
-//	DelayMS(5000);
+	DelayMS(5000);
 	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_SET);
 	
 	car_Awake();
 	car_FastDecay();
-//	car_GoLength(300);
+//	car_GoLength(50);
 //	car_Brake();
-//	car_GoStraight(400);
-	car_SetSpeedL(1560);
-	car_SetSpeedR(1560);
+//	car_GoStraight(30);
+//	car_SetSpeedL(2000);
+//	car_SetSpeedR(2000);
 	
   /* USER CODE END 2 */
 

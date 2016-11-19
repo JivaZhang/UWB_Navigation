@@ -111,8 +111,8 @@ int main(void)
 //	car_GoLength(300);
 //	car_Brake();
 //	car_GoStraight(400);
-	car_SetSpeedL(-400);
-	car_SetSpeedR(-400);
+	car_SetSpeedL(1560);
+	car_SetSpeedR(1560);
 	
   /* USER CODE END 2 */
 

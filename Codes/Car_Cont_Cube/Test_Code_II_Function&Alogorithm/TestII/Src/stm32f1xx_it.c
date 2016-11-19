@@ -172,6 +172,8 @@ void SysTick_Handler(void)
 		hundredMSCnt = 0;
 		readEncoRAWData();
 		movementPIDCont();
+		straightPIDConstraint();
+		contSpeedPWM();
 	}
   /* USER CODE END SysTick_IRQn 1 */
 }
