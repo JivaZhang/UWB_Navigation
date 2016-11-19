@@ -17,7 +17,7 @@ static int32_t positionL = 0, positionR = 0;
 static int32_t targetSpeedL = 0, targetSpeedR = 0;
 static int32_t targetPosL = 0, targetPosR = 0;
 static int32_t setSpeedL = 0, setSpeedR = 0;
-uint8_t clearEncoderFlag = RESET;
+uint8_t clearEncoderFlag = RESET, turnStableFlag = SET;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -85,13 +85,23 @@ int32_t incrementalPIDR(int32_t encoderDiffPulseR, int32_t targetSpeedR)
 //PWM = Kp * e(k) + Ki * ¡Æe(k) + Kd * [e(k) - e(k-1)]
 int32_t positionPIDL(int32_t encoderPosL, int32_t targetPosL)
 { 	
-	static float Kp = 3.7, Ki = 0.0, Kd = 2.7;
+	static float Kp = 0.7, Ki = 0.0001, Kd = 0.15;
 	static float Ek = 0.0, Ek1 = 0.0, sigmaEk = 0.0, PWML = 0.0;
 	static int32_t temp;
+	static uint8_t tempCnt = 0;
 	temp = -encoderPosL + targetPosL;
 	Ek = (float)temp;
 	sigmaEk += Ek;
 	PWML = Kp * Ek + Ki * sigmaEk + Kd * (Ek - Ek1);
+	if(Ek == Ek1)
+	{
+		tempCnt++;
+		if(tempCnt == 20)
+		{
+			tempCnt = 0;
+			turnStableFlag >>= 4;
+		}
+	}
 	Ek1 = Ek;
 	return (int32_t)PWML;
 }
@@ -99,13 +109,23 @@ int32_t positionPIDL(int32_t encoderPosL, int32_t targetPosL)
 //PWM = Kp * e(k) + Ki * ¡Æe(k) + Kd * [e(k) - e(k-1)]
 int32_t positionPIDR(int32_t encoderPosR, int32_t targetPosR)
 { 	
-	static float Kp = 3.7, Ki = 0.0, Kd = 2.7;
+	static float Kp = 0.7, Ki = 0.0001, Kd = 0.15;
 	static float Ek = 0.0, Ek1 = 0.0, sigmaEk = 0.0, PWMR = 0.0;
 	static int32_t temp;
+	static uint8_t tempCnt = 0;
 	temp = -encoderPosR + targetPosR;
 	Ek = (float)temp;
 	sigmaEk += Ek;
 	PWMR = Kp * Ek + Ki * sigmaEk + Kd * (Ek - Ek1);
+	if(Ek == Ek1)
+	{
+		tempCnt++;
+		if(tempCnt == 20)
+		{
+			tempCnt = 0;
+			turnStableFlag >>= 4;
+		}
+	}
 	Ek1 = Ek;
 	return (int32_t)PWMR;
 }
@@ -131,12 +151,14 @@ void movementPIDCont(void) //Be called in every 100ms.
 	pidSpeedIncL = incrementalPIDL(encoderDiffL, targetSpeedL);
 	pidSpeedPosL = positionPIDL(positionL, targetPosL);
 //	car_SetSpeedL(pidSpeedIncL);
-	setSpeedL = pidSpeedIncL;
+//	setSpeedL = pidSpeedIncL;
+	setSpeedL = pidSpeedPosL;
 	
 	pidSpeedIncR = incrementalPIDR(encoderDiffR, targetSpeedR);
 	pidSpeedPosR = positionPIDR(positionR, targetPosR);
 //	car_SetSpeedR(pidSpeedIncR);
-	setSpeedR = pidSpeedIncR;
+//	setSpeedR = pidSpeedIncR;
+	setSpeedR = pidSpeedPosR;
 }
 
 void straightPIDConstraint(void) //A same speed constraint for going straight. Be called in every 100ms.
