@@ -164,8 +164,6 @@ void SysTick_Handler(void)
 		tenMSCnt = 0;
 		readEncoRAWData();
 		movementPIDCont();
-//		straightPIDConstraint();
-		contSpeedPWM();
 	}
 	if(fiftyMSCnt == 50)
 	{
