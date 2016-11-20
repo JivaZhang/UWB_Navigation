@@ -64,16 +64,18 @@ int32_t positionPIDL(int32_t encoderPosL, int32_t targetPosL)
 	Ek = (float)temp;
 	sigmaEk += Ek;
 	PWML = Kp * Ek + Ki * sigmaEk + Kd * (Ek - Ek1);
-	if(Ek == Ek1)
-	{
-		tempCnt++;
-		if(tempCnt == 20)
-		{
-			tempCnt = 0;
-			turnStableFlag >>= 4;
-		}
-	}
+//	if(Ek == Ek1)
+//	{
+//		tempCnt++;
+//		if(tempCnt == 30)
+//		{
+//			tempCnt = 0;
+//			turnStableFlag >>= 4;
+//		}
+//	}
 	Ek1 = Ek;
+//	PWML = PWML > 500 ? 500 : PWML;
+//	PWML = PWML < -500 ? -500 : PWML;
 	return (int32_t)PWML;
 }
 
@@ -88,16 +90,18 @@ int32_t positionPIDR(int32_t encoderPosR, int32_t targetPosR)
 	Ek = (float)temp;
 	sigmaEk += Ek;
 	PWMR = Kp * Ek + Ki * sigmaEk + Kd * (Ek - Ek1);
-	if(Ek == Ek1)
-	{
-		tempCnt++;
-		if(tempCnt == 20)
-		{
-			tempCnt = 0;
-			turnStableFlag >>= 4;
-		}
-	}
+//	if(Ek == Ek1)
+//	{
+//		tempCnt++;
+//		if(tempCnt == 30)
+//		{
+//			tempCnt = 0;
+//			turnStableFlag >>= 4;
+//		}
+//	}
 	Ek1 = Ek;
+//	PWMR = PWMR > 500 ? 500 : PWMR;
+//	PWMR = PWMR < -500 ? -500 : PWMR;
 	return (int32_t)PWMR;
 }
 
@@ -150,6 +154,7 @@ void straightPIDConstraint(void) //A same speed constraint for going straight. B
 
 void contSpeedPWM(void)
 {
+//	car_SetSpeedL(setSpeedL*0.92);
 	car_SetSpeedL(setSpeedL);
 	car_SetSpeedR(setSpeedR);
 }
@@ -175,14 +180,15 @@ void movementPIDCont(void) //Be called in every 100ms.
 	
 	pidSpeedIncL = incrementalPIDL(encoderDiffL, targetSpeedL);
 	pidSpeedPosL = positionPIDL(positionL, targetPosL);
-	setSpeedL = turnStableFlag ? pidSpeedPosL : pidSpeedIncL;
+//	setSpeedL = turnStableFlag ? pidSpeedPosL : pidSpeedIncL;
+	setSpeedL = pidSpeedPosL;
 	
 	pidSpeedIncR = incrementalPIDR(encoderDiffR, targetSpeedR);
 	pidSpeedPosR = positionPIDR(positionR, targetPosR);
-	setSpeedR = turnStableFlag ? pidSpeedPosR : pidSpeedIncR;
-	
-	if(turnStableFlag == 0)
-		straightPIDConstraint();
+//	setSpeedR = turnStableFlag ? pidSpeedPosR : pidSpeedIncR;
+	setSpeedR = pidSpeedPosR;
+//	if(turnStableFlag == 0)
+//		straightPIDConstraint();
 	
 	contSpeedPWM();
 }

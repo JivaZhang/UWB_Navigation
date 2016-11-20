@@ -7,6 +7,7 @@
 #include "motor_cont.h"
 #include "tim.h"
 #include "encoderPID.h"
+#include "delay.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -112,6 +113,8 @@ void car_GoLength(int32_t targetLength) //PID
 
 uint8_t ifTurnStable(void)
 {
+//	turnStableFlag = 0xFF;
+//	DelayMS(50);
 	return turnStableFlag;
 }
 
@@ -140,4 +143,6 @@ void car_Stop(void)
 	setTargetSpeed(0, 0);
 	setTargetPos(0, 0);
 	clearEncoderFlag = SET;
+	car_SetSpeedL(0);
+	car_SetSpeedR(0);
 }
