@@ -91,17 +91,17 @@ uint8_t car_GetDirecR(void)
 	return forwardFlagR;
 }
 
-void car_Turn(int32_t thetaTurn) //Cal -> thetaWheel = 2 * thetaTurn
+void car_Turn(int32_t thetaTurn) //Cal -> thetaWheel = 2.25 * thetaTurn
 {
 	static int32_t thetaWheelL = 0, thetaWheelR = 0;
 	thetaTurn = thetaTurn % 360;
-	thetaWheelL = 2.15 * thetaTurn;
-	thetaWheelR = -2.15 * thetaTurn;
+	thetaWheelL = 2.1 * thetaTurn;
+	thetaWheelR = -2.1 * thetaTurn;
 	thetaWheelL = thetaWheelL * encoderPulse / 360.0;
 	thetaWheelR = thetaWheelR * encoderPulse / 360.0;
 	setTargetPos(thetaWheelL, thetaWheelR);
 	clearEncoderFlag = SET;
-	turnStableFlag = 0xFF;
+	turnStableFlag = 0xEE;
 }
 
 void car_GoLength(int32_t targetLength) //PID

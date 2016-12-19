@@ -59,23 +59,27 @@ int32_t positionPIDL(int32_t encoderPosL, int32_t targetPosL)
 	static float Kp = 0.7, Ki = 0.0001, Kd = 0.15;
 	static float Ek = 0.0, Ek1 = 0.0, sigmaEk = 0.0, PWML = 0.0;
 	static int32_t temp;
-	static uint8_t tempCnt = 0;
+	static uint8_t tempCnt = 0, tempFlag = 0;
+	tempFlag = turnStableFlag & 0x01;
 	temp = -encoderPosL + targetPosL;
 	Ek = (float)temp;
 	sigmaEk += Ek;
 	PWML = Kp * Ek + Ki * sigmaEk + Kd * (Ek - Ek1);
-//	if(Ek == Ek1)
-//	{
-//		tempCnt++;
-//		if(tempCnt == 30)
-//		{
-//			tempCnt = 0;
-//			turnStableFlag >>= 4;
-//		}
-//	}
+	if(Ek == Ek1)
+	{
+		tempCnt++;
+		if(tempCnt == 30)
+		{
+			tempCnt = 0;
+			turnStableFlag >>= 4;
+		}
+	}
 	Ek1 = Ek;
-//	PWML = PWML > 500 ? 500 : PWML;
-//	PWML = PWML < -500 ? -500 : PWML;
+	if(tempFlag)
+	{
+		PWML = PWML > 500 ? 500 : PWML;
+		PWML = PWML < -500 ? -500 : PWML;
+	}
 	return (int32_t)PWML;
 }
 
@@ -85,23 +89,27 @@ int32_t positionPIDR(int32_t encoderPosR, int32_t targetPosR)
 	static float Kp = 0.7, Ki = 0.0001, Kd = 0.15;
 	static float Ek = 0.0, Ek1 = 0.0, sigmaEk = 0.0, PWMR = 0.0;
 	static int32_t temp;
-	static uint8_t tempCnt = 0;
+	static uint8_t tempCnt = 0, tempFlag = 0;
+	tempFlag = turnStableFlag & 0x01;
 	temp = -encoderPosR + targetPosR;
 	Ek = (float)temp;
 	sigmaEk += Ek;
 	PWMR = Kp * Ek + Ki * sigmaEk + Kd * (Ek - Ek1);
-//	if(Ek == Ek1)
-//	{
-//		tempCnt++;
-//		if(tempCnt == 30)
-//		{
-//			tempCnt = 0;
-//			turnStableFlag >>= 4;
-//		}
-//	}
+	if(Ek == Ek1)
+	{
+		tempCnt++;
+		if(tempCnt == 30)
+		{
+			tempCnt = 0;
+			turnStableFlag >>= 4;
+		}
+	}
 	Ek1 = Ek;
-//	PWMR = PWMR > 500 ? 500 : PWMR;
-//	PWMR = PWMR < -500 ? -500 : PWMR;
+	if(tempFlag)
+	{
+		PWMR = PWMR > 500 ? 500 : PWMR;
+		PWMR = PWMR < -500 ? -500 : PWMR;
+	}
 	return (int32_t)PWMR;
 }
 
@@ -154,8 +162,10 @@ void straightPIDConstraint(void) //A same speed constraint for going straight. B
 
 void contSpeedPWM(void)
 {
-//	car_SetSpeedL(setSpeedL*0.92);
-	car_SetSpeedL(setSpeedL);
+	if(turnStableFlag&0x01)
+		car_SetSpeedL(setSpeedL*0.92);	
+	else
+		car_SetSpeedL(setSpeedL);
 	car_SetSpeedR(setSpeedR);
 }
 
@@ -180,15 +190,15 @@ void movementPIDCont(void) //Be called in every 100ms.
 	
 	pidSpeedIncL = incrementalPIDL(encoderDiffL, targetSpeedL);
 	pidSpeedPosL = positionPIDL(positionL, targetPosL);
-//	setSpeedL = turnStableFlag ? pidSpeedPosL : pidSpeedIncL;
-	setSpeedL = pidSpeedPosL;
+	setSpeedL = turnStableFlag ? pidSpeedPosL : pidSpeedIncL;
+//	setSpeedL = pidSpeedPosL;
 	
 	pidSpeedIncR = incrementalPIDR(encoderDiffR, targetSpeedR);
 	pidSpeedPosR = positionPIDR(positionR, targetPosR);
-//	setSpeedR = turnStableFlag ? pidSpeedPosR : pidSpeedIncR;
-	setSpeedR = pidSpeedPosR;
+	setSpeedR = turnStableFlag ? pidSpeedPosR : pidSpeedIncR;
+//	setSpeedR = pidSpeedPosR;
 //	if(turnStableFlag == 0)
 //		straightPIDConstraint();
-	
+
 	contSpeedPWM();
 }
