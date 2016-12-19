@@ -115,14 +115,20 @@ int main(void)
 //	car_SetSpeedL(350);
 //	car_SetSpeedR(350);
 	
-//		car_GoLength(1560*3);
-//		while(ifTurnStable());
-		car_Turn(90);
-		while(ifTurnStable());
+	car_GoLength(1560*7);
+	while(ifTurnStable());
+	car_Turn(80);
+	while(ifTurnStable());
+	car_GoLength(1560*4);
+	while(ifTurnStable());
+	car_Turn(-60);
+	while(ifTurnStable());
+	car_GoLength(1560*3);
+	while(ifTurnStable());
 //		DelayMS(1000);
 //		car_GoStraight(10);
 //		DelayMS(500);
-//		car_Sleep();
+	car_Sleep();
 	
   /* USER CODE END 2 */
 
