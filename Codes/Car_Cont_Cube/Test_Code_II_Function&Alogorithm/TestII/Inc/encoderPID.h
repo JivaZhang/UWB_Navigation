@@ -13,6 +13,7 @@
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 extern uint8_t clearEncoderFlag, turnStableFlag;
+extern float saveIMUAngleZ;
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

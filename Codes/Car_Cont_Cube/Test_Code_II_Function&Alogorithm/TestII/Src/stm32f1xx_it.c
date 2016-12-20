@@ -163,9 +163,11 @@ void SysTick_Handler(void)
 	if(tenMSCnt == 10)
 	{
 		tenMSCnt = 0;
-//		readEncoRAWData();
-//		movementPIDCont();
-		turnPIDCont();
+		readEncoRAWData();
+		if(turnAngleStableFlag)
+			turnPIDCont();
+		else if(turnStableFlag)
+			movementPIDCont();
 	}
 	if(fiftyMSCnt == 50)
 	{

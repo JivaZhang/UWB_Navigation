@@ -23,8 +23,10 @@ void car_SetSpeedR(int32_t speedR);
 uint8_t car_GetDirecL(void);
 uint8_t car_GetDirecR(void);
 void car_Turn(int32_t thetaTurn);
+void car_Turnto(float angle); //-180~+180
 void car_GoLength(int32_t targetLength);
 uint8_t ifTurnStable(void);
+uint8_t ifTurnToStable(void);
 void car_GoStraight(int32_t targetSpeed);
 void car_Stop(void);
 

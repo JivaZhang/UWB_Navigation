@@ -71,6 +71,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+//	static uint8_t cntLength = 0;
 	
   /* USER CODE END 1 */
 
@@ -103,13 +104,50 @@ int main(void)
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
 	
-	DelayMS(5000);
+	DelayMS(10000);
 	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_SET); //Debug led.
 	
 	car_Awake();
 	car_FastDecay();
 	
-	car_Turnto(1.0);
+//	for(cntLength = 0; cntLength < 6; cntLength++)
+//	{
+		car_GoLength(1560 * 3.11 * 6);
+		while(ifTurnStable());
+//	}
+	
+	car_Turn(90.0);
+	while(ifTurnToStable());
+	
+//	for(cntLength = 0; cntLength < 9; cntLength++)
+//	{
+		car_GoLength(1560 * 3.11 * 9);
+		while(ifTurnStable());
+//	}
+	
+	car_Sleep();
+	DelayMS(5000);
+	car_Awake();
+	
+	car_Turn(180.0);
+	while(ifTurnToStable());
+	
+//	for(cntLength = 0; cntLength < 8; cntLength++)
+//	{
+		car_GoLength(1560 * 3.11 * 8);
+		while(ifTurnStable());
+//	}
+	
+	car_Turn(-95.0);
+	while(ifTurnToStable());
+	
+//	for(cntLength = 0; cntLength < 6; cntLength++)
+//	{
+		car_GoLength(1560 * 3.11 * 3.8);
+		while(ifTurnStable());
+//	}
+	
+	car_Sleep();
 
 	
   /* USER CODE END 2 */

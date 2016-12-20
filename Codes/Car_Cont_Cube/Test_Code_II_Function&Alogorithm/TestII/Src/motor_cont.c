@@ -7,7 +7,9 @@
 #include "motor_cont.h"
 #include "tim.h"
 #include "encoderPID.h"
+#include "imuPID.h"
 #include "delay.h"
+#include "parseJY.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -106,45 +108,76 @@ uint8_t car_GetDirecR(void)
 //	turnStableFlag = 0xEE;
 //}
 
-//void car_GoLength(int32_t targetLength) //PID
-//{
-//	setTargetPos(targetLength, targetLength);
-//	clearEncoderFlag = SET;
+void car_Turn(int32_t angle) //-180~+180
+{
+	//Get angle now.
+	static float angleNow = 0.0, angleTurn = 0.0, angleSet = 0.0;
+	static int32_t angleTemp = 0;
+	angleTurn = (float)angle;
+	angleNow = getIMU_AngleZ() + 180.0; //0.0~360.0
+	
+	angleSet = angleNow + angleTurn;
+	angleTemp = (int32_t)angleSet;
+	angleTemp %= 360;
+	angleTemp -= 180;
+	angleSet = (float)angleTemp;
+	
+	setTargetAngle(angleSet);
+	turnAngleStableFlag = 0x0F;
+}
+
+void car_Turnto(float angle) //-180~+180
+{
+	setTargetAngle(angle);
+	turnAngleStableFlag = 0x0F;
+}
+
+void car_GoLength(int32_t targetLength) //PID
+{
+	setTargetPos(targetLength, targetLength);
+	clearEncoderFlag = SET;
+	turnStableFlag = 0xFF;
+	saveIMUAngleZ = getIMU_AngleZ();
+}
+
+uint8_t ifTurnStable(void)
+{
 //	turnStableFlag = 0xFF;
-//}
+//	DelayMS(50);
+	return turnStableFlag;
+}
 
-//uint8_t ifTurnStable(void)
-//{
-////	turnStableFlag = 0xFF;
-////	DelayMS(50);
-//	return turnStableFlag;
-//}
+uint8_t ifTurnToStable(void)
+{
+	return turnAngleStableFlag;
+}
 
-//void car_GoStraight(int32_t targetSpeed) //Speed range: [0,121]
-//{
-////	//targetSpeed = [28,121](Oct)
-//	static float maxEncoSpeed = 121.0, minEncoSpeed = 28.0;
-//	static float setSpeed = 0.0;
-//	static int32_t tranSpeed = 0;
+void car_GoStraight(int32_t targetSpeed) //Speed range: [0,121]
+{
+//	//targetSpeed = [28,121](Oct)
+	static float maxEncoSpeed = 121.0, minEncoSpeed = 28.0;
+	static float setSpeed = 0.0;
+	static int32_t tranSpeed = 0;
 
-//	setSpeed = (float)targetSpeed;
-//	setSpeed = setSpeed > maxEncoSpeed ? maxEncoSpeed : setSpeed;
-//	setSpeed = setSpeed < -maxEncoSpeed ? -maxEncoSpeed : setSpeed;
-//	
-//	if(setSpeed > 0.0 && setSpeed < minEncoSpeed)
-//		setSpeed = minEncoSpeed;
-//	if(setSpeed < 0.0 && setSpeed > -minEncoSpeed)
-//		setSpeed = -minEncoSpeed;
-//	tranSpeed = (int32_t)setSpeed;
-//	
-//	setTargetSpeed(tranSpeed, tranSpeed);
-//}
+	setSpeed = (float)targetSpeed;
+	setSpeed = setSpeed > maxEncoSpeed ? maxEncoSpeed : setSpeed;
+	setSpeed = setSpeed < -maxEncoSpeed ? -maxEncoSpeed : setSpeed;
+	
+	if(setSpeed > 0.0 && setSpeed < minEncoSpeed)
+		setSpeed = minEncoSpeed;
+	if(setSpeed < 0.0 && setSpeed > -minEncoSpeed)
+		setSpeed = -minEncoSpeed;
+	tranSpeed = (int32_t)setSpeed;
+	
+	saveIMUAngleZ = getIMU_AngleZ();
+	setTargetSpeed(tranSpeed, tranSpeed);
+}
 
-//void car_Stop(void)
-//{
-//	setTargetSpeed(0, 0);
-//	setTargetPos(0, 0);
-//	clearEncoderFlag = SET;
-//	car_SetSpeedL(0);
-//	car_SetSpeedR(0);
-//}
+void car_Stop(void)
+{
+	setTargetSpeed(0, 0);
+	setTargetPos(0, 0);
+	clearEncoderFlag = SET;
+	car_SetSpeedL(0);
+	car_SetSpeedR(0);
+}

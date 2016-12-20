@@ -12,9 +12,11 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+extern uint8_t turnAngleStableFlag;
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
 #endif /* __sIMUPID_H */
-void car_Turnto(float angle); //-180~+180
+void setTargetAngle(float angle);
 void turnPIDCont(void); //Be called in every 100ms.

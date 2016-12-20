@@ -30,4 +30,6 @@ testii\motor_cont.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 testii\motor_cont.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 testii\motor_cont.o: ../Inc/tim.h
 testii\motor_cont.o: ../Inc/encoderPID.h
+testii\motor_cont.o: ../Inc/imuPID.h
 testii\motor_cont.o: ../Inc/delay.h
+testii\motor_cont.o: ../Inc/parseJY.h
