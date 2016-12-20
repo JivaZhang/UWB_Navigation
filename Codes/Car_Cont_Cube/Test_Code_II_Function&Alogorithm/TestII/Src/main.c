@@ -42,6 +42,7 @@
 #include "delay.h"
 #include "parseJY.h"
 #include "motor_cont.h"
+#include "imuPID.h"
 
 /* USER CODE END Includes */
 
@@ -49,7 +50,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-static uint8_t uwbData[10];
+//static uint8_t uwbData[10];
 
 /* USER CODE END PV */
 
@@ -70,7 +71,8 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+//	static uint8_t cntLength = 0;
+	
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -91,8 +93,7 @@ int main(void)
   MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
-//	initJY();
-//	HAL_UART_Receive_DMA(&huart2, uwbData, 10);
+	initJY();
 	
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
@@ -103,32 +104,51 @@ int main(void)
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
 	
-	DelayMS(5000);
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_SET);
+	DelayMS(10000);
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_SET); //Debug led.
 	
 	car_Awake();
 	car_FastDecay();
-//	car_Turn(90);
-//	car_GoLength(50);
-//	car_Brake();
-//	car_GoStraight(10);
-//	car_SetSpeedL(350);
-//	car_SetSpeedR(350);
 	
-	car_GoLength(1560*7);
-	while(ifTurnStable());
-	car_Turn(80);
-	while(ifTurnStable());
-	car_GoLength(1560*4);
-	while(ifTurnStable());
-	car_Turn(-60);
-	while(ifTurnStable());
-	car_GoLength(1560*3);
-	while(ifTurnStable());
-//		DelayMS(1000);
-//		car_GoStraight(10);
-//		DelayMS(500);
+//	for(cntLength = 0; cntLength < 6; cntLength++)
+//	{
+		car_GoLength(1560 * 3.11 * 6);
+		while(ifTurnStable());
+//	}
+	
+	car_Turn(90.0);
+	while(ifTurnToStable());
+	
+//	for(cntLength = 0; cntLength < 9; cntLength++)
+//	{
+		car_GoLength(1560 * 3.11 * 9);
+		while(ifTurnStable());
+//	}
+	
 	car_Sleep();
+	DelayMS(5000);
+	car_Awake();
+	
+	car_Turn(180.0);
+	while(ifTurnToStable());
+	
+//	for(cntLength = 0; cntLength < 8; cntLength++)
+//	{
+		car_GoLength(1560 * 3.11 * 8);
+		while(ifTurnStable());
+//	}
+	
+	car_Turn(-95.0);
+	while(ifTurnToStable());
+	
+//	for(cntLength = 0; cntLength < 6; cntLength++)
+//	{
+		car_GoLength(1560 * 3.11 * 3.8);
+		while(ifTurnStable());
+//	}
+	
+	car_Sleep();
+
 	
   /* USER CODE END 2 */
 
@@ -139,17 +159,6 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-//		car_Turn(90);
-//		while(ifTurnStable());
-//		DelayMS(1000);
-//		car_GoStraight(10);
-//		DelayMS(2500);
-//		car_Stop();
-//		DelayMS(1000);
-//		car_GoStraight(100);
-//		DelayMS(1000);
-//		car_Stop();
-//		DelayMS(1000);
 
   }
   /* USER CODE END 3 */

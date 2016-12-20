@@ -7,6 +7,7 @@
 #include "encoderPID.h"
 #include "tim.h"
 #include "motor_cont.h"
+#include "parseJY.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -17,6 +18,7 @@ static int32_t positionL = 0, positionR = 0;
 static int32_t targetSpeedL = 0, targetSpeedR = 0;
 static int32_t targetPosL = 0, targetPosR = 0;
 static int32_t setSpeedL = 0, setSpeedR = 0;
+float saveIMUAngleZ = 0.0;
 uint8_t clearEncoderFlag = RESET, turnStableFlag = SET;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -57,7 +59,7 @@ void setTargetPos(int32_t posL, int32_t posR)
 int32_t positionPIDL(int32_t encoderPosL, int32_t targetPosL)
 { 	
 	static float Kp = 0.7, Ki = 0.0001, Kd = 0.15;
-	static float Ek = 0.0, Ek1 = 0.0, sigmaEk = 0.0, PWML = 0.0;
+	static float Ek = 0.0, Ek1 = 0.0, sigmaEk = 0.0, PWML = 0.0, tempDiff = 0.0;
 	static int32_t temp;
 	static uint8_t tempCnt = 0, tempFlag = 0;
 	tempFlag = turnStableFlag & 0x01;
@@ -65,7 +67,10 @@ int32_t positionPIDL(int32_t encoderPosL, int32_t targetPosL)
 	Ek = (float)temp;
 	sigmaEk += Ek;
 	PWML = Kp * Ek + Ki * sigmaEk + Kd * (Ek - Ek1);
-	if(Ek == Ek1)
+	
+	tempDiff = Ek - Ek1;
+	tempDiff = tempDiff<0 ? -tempDiff : tempDiff;
+	if(tempDiff < 2.0)
 	{
 		tempCnt++;
 		if(tempCnt == 30)
@@ -87,7 +92,7 @@ int32_t positionPIDL(int32_t encoderPosL, int32_t targetPosL)
 int32_t positionPIDR(int32_t encoderPosR, int32_t targetPosR)
 { 	
 	static float Kp = 0.7, Ki = 0.0001, Kd = 0.15;
-	static float Ek = 0.0, Ek1 = 0.0, sigmaEk = 0.0, PWMR = 0.0;
+	static float Ek = 0.0, Ek1 = 0.0, sigmaEk = 0.0, PWMR = 0.0, tempDiff = 0.0;
 	static int32_t temp;
 	static uint8_t tempCnt = 0, tempFlag = 0;
 	tempFlag = turnStableFlag & 0x01;
@@ -95,7 +100,10 @@ int32_t positionPIDR(int32_t encoderPosR, int32_t targetPosR)
 	Ek = (float)temp;
 	sigmaEk += Ek;
 	PWMR = Kp * Ek + Ki * sigmaEk + Kd * (Ek - Ek1);
-	if(Ek == Ek1)
+	
+	tempDiff = Ek - Ek1;
+	tempDiff = tempDiff<0 ? -tempDiff : tempDiff;
+	if(tempDiff < 2.0)
 	{
 		tempCnt++;
 		if(tempCnt == 30)
@@ -143,15 +151,32 @@ int32_t incrementalPIDR(int32_t encoderDiffPulseR, int32_t targetSpeedR)
 
 void straightPIDConstraint(void) //A same speed constraint for going straight. Be called in every 100ms.
 {
+//	//PWM += Kp * [e(k) - e(k-1)] + Ki * e(k) + Kd * [e(k) - 2 * e(k-1) + e(k-2)]
+//	static int32_t encoderDiffL = 0, encoderDiffR = 0, encoderDiffLR = 0;
+//	static float Kp = 177.7, Ki = 1.57, Kd = 0.007;
+//	static float Ek = 0.0, Ek1 = 0.0, Ek2 = 0.0, deltaPWM = 0.0;
+//	encoderDiffL = getEncoderDiffL();
+//	encoderDiffR = getEncoderDiffR();
+//	encoderDiffLR = encoderDiffL - encoderDiffR;
+//	
+//	Ek = -(float)encoderDiffLR;
+//	deltaPWM += Kp * (Ek - Ek1) + Ki * Ek + Kd * (Ek - 2 * Ek1 + Ek2);
+//	Ek2 = Ek1;
+//	Ek1 = Ek;
+//	
+//	setSpeedL += (int32_t)(deltaPWM / 2.0);
+//	setSpeedR -= (int32_t)(deltaPWM / 2.0);
 	//PWM += Kp * [e(k) - e(k-1)] + Ki * e(k) + Kd * [e(k) - 2 * e(k-1) + e(k-2)]
-	static int32_t encoderDiffL = 0, encoderDiffR = 0, encoderDiffLR = 0;
-	static float Kp = 177.7, Ki = 1.57, Kd = 0.007;
+	static float imuDiff = 0;
+	static float Kp = 100.1, Ki = 0.000001, Kd = 1.0;
 	static float Ek = 0.0, Ek1 = 0.0, Ek2 = 0.0, deltaPWM = 0.0;
-	encoderDiffL = getEncoderDiffL();
-	encoderDiffR = getEncoderDiffR();
-	encoderDiffLR = encoderDiffL - encoderDiffR;
+	imuDiff = getIMU_AngleZ() - saveIMUAngleZ;
 	
-	Ek = -(float)encoderDiffLR;
+	if(imuDiff > 180)
+		imuDiff -= 360;
+	else if(imuDiff < -180)
+		imuDiff += 360;
+	Ek = imuDiff;
 	deltaPWM += Kp * (Ek - Ek1) + Ki * Ek + Kd * (Ek - 2 * Ek1 + Ek2);
 	Ek2 = Ek1;
 	Ek1 = Ek;
@@ -160,11 +185,11 @@ void straightPIDConstraint(void) //A same speed constraint for going straight. B
 	setSpeedR -= (int32_t)(deltaPWM / 2.0);
 }
 
-void contSpeedPWM(void)
+void contSpeedPWMenc(void)
 {
-	if(turnStableFlag&0x01)
-		car_SetSpeedL(setSpeedL*0.92);	
-	else
+//	if(turnStableFlag&0x01)
+//		car_SetSpeedL(setSpeedL*0.92);	
+//	else
 		car_SetSpeedL(setSpeedL);
 	car_SetSpeedR(setSpeedR);
 }
@@ -198,7 +223,7 @@ void movementPIDCont(void) //Be called in every 100ms.
 	setSpeedR = turnStableFlag ? pidSpeedPosR : pidSpeedIncR;
 //	setSpeedR = pidSpeedPosR;
 //	if(turnStableFlag == 0)
-//		straightPIDConstraint();
+		straightPIDConstraint();
 
-	contSpeedPWM();
+	contSpeedPWMenc();
 }

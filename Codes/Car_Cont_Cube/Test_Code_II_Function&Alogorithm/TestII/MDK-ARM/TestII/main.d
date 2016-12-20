@@ -34,3 +34,4 @@ testii\main.o: ../Inc/gpio.h
 testii\main.o: ../Inc/delay.h
 testii\main.o: ../Inc/parseJY.h
 testii\main.o: ../Inc/motor_cont.h
+testii\main.o: ../Inc/imuPID.h

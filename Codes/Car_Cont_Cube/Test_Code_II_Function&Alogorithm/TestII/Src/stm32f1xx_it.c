@@ -41,6 +41,7 @@
 #include "delay.h"
 #include "parseJY.h"
 #include "encoderPID.h"
+#include "imuPID.h"
 
 /* USER CODE END 0 */
 
@@ -163,7 +164,10 @@ void SysTick_Handler(void)
 	{
 		tenMSCnt = 0;
 		readEncoRAWData();
-		movementPIDCont();
+		if(turnAngleStableFlag)
+			turnPIDCont();
+		else if(turnStableFlag)
+			movementPIDCont();
 	}
 	if(fiftyMSCnt == 50)
 	{
