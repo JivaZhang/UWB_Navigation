@@ -1,0 +1,33 @@
+--cpu Cortex-M3
+"testhci\stm32f1xx_hal_flash_ex.o"
+"testhci\stm32f1xx_hal.o"
+"testhci\stm32f1xx_hal_tim_ex.o"
+"testhci\stm32f1xx_hal_uart.o"
+"testhci\stm32f1xx_hal_rcc.o"
+"testhci\stm32f1xx_hal_pwr.o"
+"testhci\stm32f1xx_hal_gpio_ex.o"
+"testhci\stm32f1xx_hal_gpio.o"
+"testhci\stm32f1xx_hal_dma.o"
+"testhci\stm32f1xx_hal_flash.o"
+"testhci\stm32f1xx_hal_rcc_ex.o"
+"testhci\stm32f1xx_hal_cortex.o"
+"testhci\stm32f1xx_hal_tim.o"
+"testhci\dma.o"
+"testhci\usart.o"
+"testhci\tim.o"
+"testhci\gpio.o"
+"testhci\stm32f1xx_hal_msp.o"
+"testhci\main.o"
+"testhci\stm32f1xx_it.o"
+"testhci\delay.o"
+"testhci\encoderpid.o"
+"testhci\imupid.o"
+"testhci\motor_cont.o"
+"testhci\parsejy.o"
+"testhci\system_stm32f1xx.o"
+"testhci\startup_stm32f103xe.o"
+--library_type=microlib --strict --scatter "TestHCI\TestHCI.sct"
+
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "TestHCI.map" -o TestHCI\TestHCI.axf
