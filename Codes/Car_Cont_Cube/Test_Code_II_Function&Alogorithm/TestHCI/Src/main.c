@@ -34,6 +34,7 @@
 #include "main.h"
 #include "stm32f1xx_hal.h"
 #include "dma.h"
+#include "i2c.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -43,6 +44,7 @@
 #include "parseJY.h"
 #include "motor_cont.h"
 #include "imuPID.h"
+#include "mpr121.h"
 
 /* USER CODE END Includes */
 
@@ -91,6 +93,7 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
+  MX_I2C1_Init();
 
   /* USER CODE BEGIN 2 */
 	initJY();
@@ -104,50 +107,52 @@ int main(void)
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
 	
-	DelayMS(10000);
+	mpr121_Init();
+	
+//	DelayMS(10000);
 	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_SET); //Debug led.
 	
-	car_Awake();
-	car_FastDecay();
-	
-//	for(cntLength = 0; cntLength < 6; cntLength++)
-//	{
-		car_GoLength(1560 * 3.11 * 6);
-		while(ifTurnStable());
-//	}
-	
-	car_Turn(90.0);
-	while(ifTurnToStable());
-	
-//	for(cntLength = 0; cntLength < 9; cntLength++)
-//	{
-		car_GoLength(1560 * 3.11 * 9);
-		while(ifTurnStable());
-//	}
-	
-	car_Sleep();
-	DelayMS(5000);
-	car_Awake();
-	
-	car_Turn(180.0);
-	while(ifTurnToStable());
-	
-//	for(cntLength = 0; cntLength < 8; cntLength++)
-//	{
-		car_GoLength(1560 * 3.11 * 8);
-		while(ifTurnStable());
-//	}
-	
-	car_Turn(-95.0);
-	while(ifTurnToStable());
-	
-//	for(cntLength = 0; cntLength < 6; cntLength++)
-//	{
-		car_GoLength(1560 * 3.11 * 3.8);
-		while(ifTurnStable());
-//	}
-	
-	car_Sleep();
+//	car_Awake();
+//	car_FastDecay();
+//	
+////	for(cntLength = 0; cntLength < 6; cntLength++)
+////	{
+//		car_GoLength(1560 * 3.11 * 6);
+//		while(ifTurnStable());
+////	}
+//	
+//	car_Turn(90.0);
+//	while(ifTurnToStable());
+//	
+////	for(cntLength = 0; cntLength < 9; cntLength++)
+////	{
+//		car_GoLength(1560 * 3.11 * 9);
+//		while(ifTurnStable());
+////	}
+//	
+//	car_Sleep();
+//	DelayMS(5000);
+//	car_Awake();
+//	
+//	car_Turn(180.0);
+//	while(ifTurnToStable());
+//	
+////	for(cntLength = 0; cntLength < 8; cntLength++)
+////	{
+//		car_GoLength(1560 * 3.11 * 8);
+//		while(ifTurnStable());
+////	}
+//	
+//	car_Turn(-95.0);
+//	while(ifTurnToStable());
+//	
+////	for(cntLength = 0; cntLength < 6; cntLength++)
+////	{
+//		car_GoLength(1560 * 3.11 * 3.8);
+//		while(ifTurnStable());
+////	}
+//	
+//	car_Sleep();
 
 	
   /* USER CODE END 2 */

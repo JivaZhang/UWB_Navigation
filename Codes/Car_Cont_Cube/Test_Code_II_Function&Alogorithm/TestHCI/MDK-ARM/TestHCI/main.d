@@ -23,11 +23,13 @@ testhci\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h
 testhci\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
 testhci\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 testhci\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
+testhci\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h
 testhci\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 testhci\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 testhci\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 testhci\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 testhci\main.o: ../Inc/dma.h
+testhci\main.o: ../Inc/i2c.h
 testhci\main.o: ../Inc/tim.h
 testhci\main.o: ../Inc/usart.h
 testhci\main.o: ../Inc/gpio.h
@@ -35,3 +37,4 @@ testhci\main.o: ../Inc/delay.h
 testhci\main.o: ../Inc/parseJY.h
 testhci\main.o: ../Inc/motor_cont.h
 testhci\main.o: ../Inc/imuPID.h
+testhci\main.o: ../Inc/mpr121.h
