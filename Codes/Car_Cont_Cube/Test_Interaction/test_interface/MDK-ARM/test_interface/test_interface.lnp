@@ -1,0 +1,28 @@
+--cpu Cortex-M0
+"test_interface\system_stm32f0xx.o"
+"test_interface\stm32f0xx_hal_rcc.o"
+"test_interface\stm32f0xx_hal_tim_ex.o"
+"test_interface\stm32f0xx_hal_cortex.o"
+"test_interface\stm32f0xx_hal_gpio.o"
+"test_interface\stm32f0xx_hal_i2c_ex.o"
+"test_interface\stm32f0xx_hal_tim.o"
+"test_interface\stm32f0xx_hal_i2c.o"
+"test_interface\stm32f0xx_hal_dma.o"
+"test_interface\stm32f0xx_hal_pwr_ex.o"
+"test_interface\stm32f0xx_hal_flash.o"
+"test_interface\stm32f0xx_hal.o"
+"test_interface\stm32f0xx_hal_pwr.o"
+"test_interface\stm32f0xx_hal_flash_ex.o"
+"test_interface\stm32f0xx_hal_rcc_ex.o"
+"test_interface\stm32f0xx_hal_msp.o"
+"test_interface\main.o"
+"test_interface\stm32f0xx_it.o"
+"test_interface\gpio.o"
+"test_interface\delay.o"
+"test_interface\softi2c.o"
+"test_interface\startup_stm32f030x6.o"
+--library_type=microlib --strict --scatter "test_interface\test_interface.sct"
+
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "test_interface.map" -o test_interface\test_interface.axf
