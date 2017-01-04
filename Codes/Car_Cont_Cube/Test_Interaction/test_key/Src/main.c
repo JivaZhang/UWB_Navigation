@@ -82,7 +82,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	DelayMS(100);
 	
-//	soft_SmgDisplay();
+	soft_SmgDisplay();
 	flag = 1;
   /* USER CODE END 2 */
 

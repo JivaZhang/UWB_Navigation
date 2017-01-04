@@ -5,6 +5,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "softi2c.h"
+#include "delay.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -16,7 +17,8 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 static __IO uint32_t softTick;
-uint8_t digitalNumber[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x80};
+static uint8_t digitalNumber[15] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x80, 0};
+uint8_t showNumber[4] = {14, 14, 14, 14};
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -71,7 +73,12 @@ void soft_I2CACK(void)
 {
 	SCL_Low();
 	DelayUS(5);
-	while(SDA_Read() == GPIO_PIN_SET) {}
+	SetTick(200);
+	while(SDA_Read() == GPIO_PIN_SET) 
+	{
+		if(GetTick() == 0)
+			break;
+	}
 	SCL_High();
 	DelayUS(2);
 	SCL_Low();
@@ -109,6 +116,30 @@ void soft_I2CWrByte(uint8_t data)
 	}
 }
 
+uint8_t soft_GetDigNum(uint8_t input)
+{
+	static uint8_t output;
+	output = digitalNumber[14];
+	switch(input)
+	{
+		case 0: output = digitalNumber[0]; break;
+		case 1: output = digitalNumber[1]; break;
+		case 2: output = digitalNumber[2]; break;
+		case 3: output = digitalNumber[3]; break;
+		case 4: output = digitalNumber[4]; break;
+		case 5: output = digitalNumber[5]; break;
+		case 6: output = digitalNumber[6]; break;
+		case 7: output = digitalNumber[7]; break;
+		case 8: output = digitalNumber[8]; break;
+		case 9: output = digitalNumber[9]; break;
+		case 0x0A: output = digitalNumber[0x0A]; break;
+		case 0x0B: output = digitalNumber[0x0B]; break;
+		case 0x0C: output = digitalNumber[0x0C]; break;
+		default: output = digitalNumber[14]; break;
+	}
+	return output;
+}
+
 void soft_SmgDisplay(void)
 {
 	static uint8_t i;
@@ -121,16 +152,16 @@ void soft_SmgDisplay(void)
 	soft_I2CWrByte(0xC0);
 	soft_I2CACK();
 	
-	soft_I2CWrByte(0);
+	soft_I2CWrByte(soft_GetDigNum(showNumber[3]));
 	soft_I2CACK();
 	
-	soft_I2CWrByte(digitalNumber[3]);
+	soft_I2CWrByte(soft_GetDigNum(showNumber[2]));
 	soft_I2CACK();
 	
-	soft_I2CWrByte(digitalNumber[0]);
+	soft_I2CWrByte(soft_GetDigNum(showNumber[1]));
 	soft_I2CACK();
 	
-	soft_I2CWrByte(digitalNumber[6]);
+	soft_I2CWrByte(soft_GetDigNum(showNumber[0]));
 	soft_I2CACK();
 	
 	soft_I2CStop();

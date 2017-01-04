@@ -39,9 +39,11 @@
 #include "delay.h"
 #include "softi2c.h"
 #include "keyboard.h"
+#include "softi2c.h"
 
 uint8_t temp;
 extern uint8_t flag;
+extern uint8_t showNumber[4];
 
 /* USER CODE END 0 */
 
@@ -120,11 +122,38 @@ void SysTick_Handler(void)
   /* USER CODE BEGIN SysTick_IRQn 1 */
 	DecTick();
 	fiftyMS++;
-	if(fiftyMS >= 50)
+	if(fiftyMS >= 150)
 	{
 		fiftyMS = 0;
 		if(flag)
+		{
 			temp = kbd_ScanValue();
+			if(temp != 0xFF)
+			{
+				if(temp <= 0x0C)
+				{			
+					showNumber[3] = showNumber[2];
+					showNumber[2] = showNumber[1];
+					showNumber[1] = showNumber[0];
+					showNumber[0] = temp;
+				}
+				else if(temp == 0xFE)
+				{
+					showNumber[0] = showNumber[1];
+					showNumber[1] = showNumber[2];
+					showNumber[2] = showNumber[3];
+					showNumber[3] = 14;
+				}
+				else if(temp == 0x1F)
+				{
+					showNumber[3] = 14;
+					showNumber[2] = 14;
+					showNumber[1] = 14;
+					showNumber[0] = 14;
+				}
+				soft_SmgDisplay();
+			}
+		}
 	}
 
   /* USER CODE END SysTick_IRQn 1 */
