@@ -591,21 +591,21 @@ Image Symbol Table
     ../Src/stm32f0xx_it.c                    0x00000000   Number         0  stm32f0xx_it.o ABSOLUTE
     ../Src/system_stm32f0xx.c                0x00000000   Number         0  system_stm32f0xx.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
@@ -658,8 +658,8 @@ Image Symbol Table
     .text                                    0x08000200   Section        0  ddiv.o(.text)
     .text                                    0x080002f0   Section        0  dfltui.o(.text)
     .text                                    0x0800030c   Section        0  dfixui.o(.text)
-    .text                                    0x08000348   Section        0  iusefp.o(.text)
     .text                                    0x08000348   Section        0  depilogue.o(.text)
+    .text                                    0x08000348   Section        0  iusefp.o(.text)
     .text                                    0x08000408   Section       36  init.o(.text)
     .text                                    0x0800042c   Section        0  llshl.o(.text)
     i.DecTick                                0x0800044c   Section        0  delay.o(i.DecTick)
@@ -702,14 +702,13 @@ Image Symbol Table
     i.soft_I2CStop                           0x08000e44   Section        0  softi2c.o(i.soft_I2CStop)
     i.soft_I2CWrByte                         0x08000e6c   Section        0  softi2c.o(i.soft_I2CWrByte)
     i.soft_SmgDisplay                        0x08000eb4   Section        0  softi2c.o(i.soft_SmgDisplay)
-    .constdata                               0x08000f14   Section       16  system_stm32f0xx.o(.constdata)
+    .constdata                               0x08000f1c   Section       16  system_stm32f0xx.o(.constdata)
     .data                                    0x20000000   Section        4  system_stm32f0xx.o(.data)
     .data                                    0x20000004   Section        4  stm32f0xx_hal.o(.data)
     .data                                    0x20000008   Section        4  delay.o(.data)
     sTick                                    0x20000008   Data           4  delay.o(.data)
     .data                                    0x2000000c   Section       35  softi2c.o(.data)
     i                                        0x2000000c   Data           1  softi2c.o(.data)
-    i                                        0x2000000d   Data           1  softi2c.o(.data)
     told                                     0x20000010   Data           4  softi2c.o(.data)
     tnow                                     0x20000014   Data           4  softi2c.o(.data)
     tcnt                                     0x20000018   Data           4  softi2c.o(.data)
@@ -813,10 +812,10 @@ Image Symbol Table
     soft_I2CStart                            0x08000e2b   Thumb Code    26  softi2c.o(i.soft_I2CStart)
     soft_I2CStop                             0x08000e45   Thumb Code    40  softi2c.o(i.soft_I2CStop)
     soft_I2CWrByte                           0x08000e6d   Thumb Code    62  softi2c.o(i.soft_I2CWrByte)
-    soft_SmgDisplay                          0x08000eb5   Thumb Code    90  softi2c.o(i.soft_SmgDisplay)
-    AHBPrescTable                            0x08000f14   Data          16  system_stm32f0xx.o(.constdata)
-    Region$$Table$$Base                      0x08000f24   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08000f44   Number         0  anon$$obj.o(Region$$Table)
+    soft_SmgDisplay                          0x08000eb5   Thumb Code   100  softi2c.o(i.soft_SmgDisplay)
+    AHBPrescTable                            0x08000f1c   Data          16  system_stm32f0xx.o(.constdata)
+    Region$$Table$$Base                      0x08000f2c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08000f4c   Number         0  anon$$obj.o(Region$$Table)
     SystemCoreClock                          0x20000000   Data           4  system_stm32f0xx.o(.data)
     uwTick                                   0x20000004   Data           4  stm32f0xx_hal.o(.data)
     digitalNumber                            0x20000024   Data          11  softi2c.o(.data)
@@ -830,9 +829,9 @@ Memory Map of the image
 
   Image Entry point : 0x080000b1
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00000f74, Max: 0x00004000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00000f7c, Max: 0x00004000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00000f44, Max: 0x00004000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00000f4c, Max: 0x00004000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -901,9 +900,9 @@ Memory Map of the image
     0x08000e2a   0x0000001a   Code   RO         1550    i.soft_I2CStart     softi2c.o
     0x08000e44   0x00000028   Code   RO         1551    i.soft_I2CStop      softi2c.o
     0x08000e6c   0x00000048   Code   RO         1552    i.soft_I2CWrByte    softi2c.o
-    0x08000eb4   0x00000060   Code   RO         1553    i.soft_SmgDisplay   softi2c.o
-    0x08000f14   0x00000010   Data   RO            5    .constdata          system_stm32f0xx.o
-    0x08000f24   0x00000020   Data   RO         1650    Region$$Table       anon$$obj.o
+    0x08000eb4   0x00000068   Code   RO         1553    i.soft_SmgDisplay   softi2c.o
+    0x08000f1c   0x00000010   Data   RO            5    .constdata          system_stm32f0xx.o
+    0x08000f2c   0x00000020   Data   RO         1650    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000430, Max: 0x00001000, ABSOLUTE)
@@ -928,7 +927,7 @@ Image component sizes
         36          8          0          4          0       1502   delay.o
         72          6          0          0          0        847   gpio.o
        126          0          0          0          0       1556   main.o
-       394         32          0         35          0       4371   softi2c.o
+       402         30          0         35          0       4359   softi2c.o
         28          8        176          0       1024        616   startup_stm32f030x6.o
         94         18          0          4          0       3143   stm32f0xx_hal.o
        158         22          0          0          0       9910   stm32f0xx_hal_cortex.o
@@ -939,7 +938,7 @@ Image component sizes
         92         14         16          4          0     207011   system_stm32f0xx.o
 
     ----------------------------------------------------------------------
-      2712        222        224         48       1024     238419   Object Totals
+      2720        220        224         48       1024     238407   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          8          0          0          1          0          0   (incl. Padding)
 
@@ -988,15 +987,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      3684        264        224         48       1024     237655   Grand Totals
-      3684        264        224         48       1024     237655   ELF Image Totals
-      3684        264        224         48          0          0   ROM Totals
+      3692        262        224         48       1024     237643   Grand Totals
+      3692        262        224         48       1024     237643   ELF Image Totals
+      3692        262        224         48          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 3908 (   3.82kB)
+    Total RO  Size (Code + RO Data)                 3916 (   3.82kB)
     Total RW  Size (RW Data + ZI Data)              1072 (   1.05kB)
-    Total ROM Size (Code + RO Data + RW Data)       3956 (   3.86kB)
+    Total ROM Size (Code + RO Data + RW Data)       3964 (   3.87kB)
 
 ==============================================================================
 

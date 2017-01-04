@@ -120,11 +120,19 @@ void soft_SmgDisplay(void)
 	soft_I2CStart();
 	soft_I2CWrByte(0xC0);
 	soft_I2CACK();
-	for(i = 0; i < 4; i++)
-	{
-		soft_I2CWrByte(digitalNumber[0]);
-		soft_I2CACK();
-	}
+	
+	soft_I2CWrByte(0);
+	soft_I2CACK();
+	
+	soft_I2CWrByte(digitalNumber[3]);
+	soft_I2CACK();
+	
+	soft_I2CWrByte(digitalNumber[0]);
+	soft_I2CACK();
+	
+	soft_I2CWrByte(digitalNumber[6]);
+	soft_I2CACK();
+	
 	soft_I2CStop();
 	
 	soft_I2CStart();
