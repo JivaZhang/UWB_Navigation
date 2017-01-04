@@ -1,0 +1,29 @@
+--cpu Cortex-M0
+"test_key\stm32f0xx_hal.o"
+"test_key\stm32f0xx_hal_flash_ex.o"
+"test_key\stm32f0xx_hal_tim_ex.o"
+"test_key\stm32f0xx_hal_i2c.o"
+"test_key\stm32f0xx_hal_dma.o"
+"test_key\stm32f0xx_hal_pwr.o"
+"test_key\stm32f0xx_hal_pwr_ex.o"
+"test_key\stm32f0xx_hal_tim.o"
+"test_key\stm32f0xx_hal_rcc.o"
+"test_key\stm32f0xx_hal_cortex.o"
+"test_key\stm32f0xx_hal_gpio.o"
+"test_key\stm32f0xx_hal_rcc_ex.o"
+"test_key\stm32f0xx_hal_flash.o"
+"test_key\stm32f0xx_hal_i2c_ex.o"
+"test_key\gpio.o"
+"test_key\main.o"
+"test_key\stm32f0xx_hal_msp.o"
+"test_key\stm32f0xx_it.o"
+"test_key\delay.o"
+"test_key\keyboard.o"
+"test_key\softi2c.o"
+"test_key\system_stm32f0xx_1.o"
+"test_key\startup_stm32f030x6.o"
+--library_type=microlib --strict --scatter "test_key\test_key.sct"
+
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "test_key.map" -o test_key\test_key.axf
